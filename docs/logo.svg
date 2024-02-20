@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="320mm"
+   height="160mm"
+   viewBox="0 0 320 160"
+   version="1.1"
+   id="svg827"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview829"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.28637825"
+     inkscape:cx="422.51812"
+     inkscape:cy="375.37767"
+     inkscape:window-width="1366"
+     inkscape:window-height="701"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs824">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient17543">
+      <stop
+         style="stop-color:#bde0ff;stop-opacity:1"
+         offset="0"
+         id="stop17539" />
+      <stop
+         style="stop-color:#008aff;stop-opacity:1"
+         offset="1"
+         id="stop17541" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient17543"
+       id="radialGradient17545"
+       cx="334.22281"
+       cy="495.06393"
+       fx="334.22281"
+       fy="495.06393"
+       r="101.62218"
+       gradientTransform="matrix(1,0,0,0.94442599,0,27.512688)"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       y="-0.057254785"
+       height="1.1145614"
+       inkscape:menu-tooltip="Darkens the edge with an inner blur and adds a flexible glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:label="Dark and Glow"
+       style="color-interpolation-filters:sRGB"
+       id="filter10483"
+       x="-0.054504186"
+       width="1.1090085">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result6"
+         id="feGaussianBlur10473" />
+      <feComposite
+         result="result8"
+         in="SourceGraphic"
+         operator="atop"
+         in2="result6"
+         id="feComposite10475" />
+      <feComposite
+         result="result9"
+         operator="over"
+         in2="SourceAlpha"
+         in="result8"
+         id="feComposite10477" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 "
+         result="result10"
+         id="feColorMatrix10479" />
+      <feBlend
+         in="result10"
+         mode="normal"
+         in2="result6"
+         id="feBlend10481" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g23553"
+       transform="matrix(1.5371301,0,0,1.5398894,-93.283154,-34.443513)"
+       style="stroke-width:0.64998">
+      <path
+         id="rect16943"
+         style="fill:url(#radialGradient17545);stroke:#000000;stroke-width:2.27493;stroke-linecap:round;filter:url(#filter10483)"
+         transform="matrix(0.26458333,0,0,0.26458333,70.884356,-63.023215)"
+         d="m 234.35062,400.83929 54.25345,-0.15019 c 0.3082,-54.05608 93.05489,-53.35101 93.69646,-0.13236 l 51.79446,0.28255 0.83127,47.63123 c 55.84537,1.46502 52.00009,86.64503 0.0447,87.52433 l -0.87604,53.29371 -54.12935,0.56226 c 0.10387,-46.21915 -86.33806,-45.91518 -87.24006,-0.50264 l -58.37496,-0.0596 z"
+         sodipodi:nodetypes="ccccccccccc" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:118.667px;line-height:1.25;font-family:'AR PL UKai CN';-inkscape-font-specification:'AR PL UKai CN, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#111741;fill-opacity:1;stroke:none;stroke-width:0.547459"
+         x="224.12469"
+         y="231.76846"
+         id="text4480"
+         transform="matrix(0.31413095,0,0,0.31413095,71.812947,4.813155)"><tspan
+           sodipodi:role="line"
+           id="tspan4478"
+           x="224.12469"
+           y="231.76846"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:118.667px;font-family:'AR PL UKai CN';-inkscape-font-specification:'AR PL UKai CN, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.547459">中</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Concert One';-inkscape-font-specification:'Concert One, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.321422"
+       x="83.002716"
+       y="685.31635"
+       id="text14438"
+       transform="matrix(0.82316562,0,0,0.82316562,-18.391233,-416.35229)"><tspan
+         sodipodi:role="line"
+         id="tspan14436"
+         x="83.002716"
+         y="685.31635"
+         style="stroke-width:0.321422">chinese-format</tspan></text>
+  </g>
+</svg>

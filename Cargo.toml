@@ -1,0 +1,29 @@
+[package]
+name = "chinese-format"
+version = "0.1.0"
+authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
+edition = "2021"
+description = "Convert data types to Chinese"
+repository = "https://github.com/giancosta86/chinese-format"
+license = "MIT"
+keywords = ["convert", "Chinese", "logograms", "format", "measure"]
+categories = ["localization", "data-structures", "text-processing"]
+include = [
+    "LICENSE",
+    "README.md",
+    "/benches/",
+    "/examples/",
+    "/src/",
+    "/tests/",
+]
+
+[dependencies]
+chinese-number = "0.7.7"
+lazy_static = "1.4.0"
+digit-sequence = { version = "0.3.2", optional = true }
+vec_box = "1.0.0"
+dyn-error = "0.1.0"
+
+[dev-dependencies]
+pretty_assertions = "1.4.0"
+speculate2 = "0.2"
