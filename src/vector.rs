@@ -169,86 +169,86 @@ impl ChineseVec {
     }
 }
 
+/// A [ChineseVec] can be infallibly built from a [Vec] of [Chinese]`.
+///
+/// ```
+/// use chinese_format::*;
+///
+/// let chinese_vec: ChineseVec = vec![
+///     Chinese {
+///         logograms: "没".to_string(),
+///         omissible: false
+///     },
+///     Chinese {
+///         logograms: "关".to_string(),
+///         omissible: false
+///     },
+///     Chinese {
+///         logograms: "系".to_string(),
+///         omissible: false
+///     }
+/// ].into();
+///
+/// assert_eq!(chinese_vec.collect(), Chinese {
+///     logograms: "没关系".to_string(),
+///     omissible: false
+/// });
+/// ```
 impl From<Vec<Chinese>> for ChineseVec {
-    /// A [ChineseVec] can be infallibly built from a [Vec] of [Chinese]`.
-    ///
-    /// ```
-    /// use chinese_format::*;
-    ///
-    /// let chinese_vec: ChineseVec = vec![
-    ///     Chinese {
-    ///         logograms: "没".to_string(),
-    ///         omissible: false
-    ///     },
-    ///     Chinese {
-    ///         logograms: "关".to_string(),
-    ///         omissible: false
-    ///     },
-    ///     Chinese {
-    ///         logograms: "系".to_string(),
-    ///         omissible: false
-    ///     }
-    /// ].into();
-    ///
-    /// assert_eq!(chinese_vec.collect(), Chinese {
-    ///     logograms: "没关系".to_string(),
-    ///     omissible: false
-    /// });
-    /// ```
     fn from(value: Vec<Chinese>) -> Self {
         Self(value)
     }
 }
 
+/// [ChineseVec] supports [ToChinese] via its [collect](Self::collect) method.
+///
+/// Of course, the [Variant] parameter is ignored - because the
+/// [Chinese] instances are already available in the vector.
+///
+/// ```
+/// use chinese_format::*;
+/// use vec_box::*;
+///
+/// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+///     "飞",
+///     "机"
+/// ]);
+///
+/// //In traditional script, 飞 is written 飛! No conversion can be performed.
+/// assert_eq!(chinese_vec.to_chinese(Variant::Traditional), "飞机");
+/// ```
 impl ToChinese for ChineseVec {
-    /// [ChineseVec] supports [ToChinese] via its [collect](Self::collect) method.
-    ///
-    /// Of course, the [Variant] parameter is ignored - because the
-    /// [Chinese] instances are already available in the vector.
-    ///
-    /// ```
-    /// use chinese_format::*;
-    /// use vec_box::*;
-    ///
-    /// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
-    ///     "飞",
-    ///     "机"
-    /// ]);
-    ///
-    /// //In traditional script, 飞 is written 飛! No conversion can be performed.
-    /// assert_eq!(chinese_vec.to_chinese(Variant::Traditional), "飞机");
-    /// ```
     fn to_chinese(&self, _variant: Variant) -> Chinese {
         self.collect()
     }
 }
 
+///Any &[ChineseVec] can be infallibly converted to a [Vec] of [Chinese].
+///
+/// ```
+/// use chinese_format::*;
+/// use vec_box::*;
+///
+/// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+///     "你好",
+///     "生日快乐"
+/// ]);
+///
+/// let vec_of_chinese: Vec<Chinese> = (&chinese_vec).into();
+///
+/// assert_eq!(vec_of_chinese, vec![
+///     Chinese {
+///         logograms: "你好".to_string(),
+///         omissible: false
+///     },
+///
+///     Chinese {
+///         logograms: "生日快乐".to_string(),
+///         omissible: false
+///     }
+/// ]);
+/// ```
 impl From<&ChineseVec> for Vec<Chinese> {
-    ///Any &[ChineseVec] can be infallibly converted to a [Vec] of [Chinese].
-    ///
-    /// ```
-    /// use chinese_format::*;
-    /// use vec_box::*;
-    ///
-    /// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
-    ///     "你好",
-    ///     "生日快乐"
-    /// ]);
-    ///
-    /// let vec_of_chinese: Vec<Chinese> = (&chinese_vec).into();
-    ///
-    /// assert_eq!(vec_of_chinese, vec![
-    ///     Chinese {
-    ///         logograms: "你好".to_string(),
-    ///         omissible: false
-    ///     },
-    ///
-    ///     Chinese {
-    ///         logograms: "生日快乐".to_string(),
-    ///         omissible: false
-    ///     }
-    /// ]);
-    /// ```
     fn from(value: &ChineseVec) -> Self {
         value.0.to_vec()
     }

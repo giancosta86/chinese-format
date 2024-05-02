@@ -19,55 +19,55 @@ pub struct Chinese {
     pub omissible: bool,
 }
 
+/// Converting [Chinese] to string returns its logograms:
+///
+/// ```
+/// use chinese_format::Chinese;
+///
+/// let chinese = Chinese {
+///     logograms: "苹果".to_string(),
+///     omissible: false
+/// };
+///
+/// assert_eq!(chinese, "苹果");
+/// ```
 impl Display for Chinese {
-    /// Converting [Chinese] to string returns its logograms:
-    ///
-    /// ```
-    /// use chinese_format::Chinese;
-    ///
-    /// let chinese = Chinese {
-    ///     logograms: "苹果".to_string(),
-    ///     omissible: false
-    /// };
-    ///
-    /// assert_eq!(chinese, "苹果");
-    /// ```
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.logograms)
     }
 }
 
+/// [Chinese] can be compared with &[str].
+///
+/// ```
+/// use chinese_format::Chinese;
+///
+/// let chinese = Chinese {
+///     logograms: "小猫".to_string(),
+///     omissible: false
+/// };
+///
+/// assert_eq!(chinese, "小猫");
+/// ```
 impl PartialEq<&str> for Chinese {
-    /// [Chinese] can be compared with &[str].
-    ///
-    /// ```
-    /// use chinese_format::Chinese;
-    ///
-    /// let chinese = Chinese {
-    ///     logograms: "小猫".to_string(),
-    ///     omissible: false
-    /// };
-    ///
-    /// assert_eq!(chinese, "小猫");
-    /// ```
     fn eq(&self, other: &&str) -> bool {
         self.logograms == *other
     }
 }
 
+/// [Chinese] can be compared with [String].
+///
+/// ```
+/// use chinese_format::Chinese;
+///
+/// let chinese = Chinese {
+///     logograms: "电脑".to_string(),
+///     omissible: false
+/// };
+///
+/// assert_eq!(chinese, "电脑".to_string());
+/// ```
 impl PartialEq<String> for Chinese {
-    /// [Chinese] can be compared with [String].
-    ///
-    /// ```
-    /// use chinese_format::Chinese;
-    ///
-    /// let chinese = Chinese {
-    ///     logograms: "电脑".to_string(),
-    ///     omissible: false
-    /// };
-    ///
-    /// assert_eq!(chinese, "电脑".to_string());
-    /// ```
     fn eq(&self, other: &String) -> bool {
         self.logograms == *other
     }
