@@ -7,7 +7,7 @@
 /// use chinese_format::*;
 ///
 /// //String is NOT Copy, so neither can be any measure depending on it.
-/// define_measure_no_copy!(pub, Nian, pub(self), String, "年");
+/// define_no_copy_measure!(pub, Nian, pub(self), String, "年");
 ///
 /// let year_string: String = "2009".to_string();
 /// let year = Nian(year_string.clone());
@@ -60,7 +60,7 @@
 /// ```compile_fail
 /// use chinese_format::*;
 ///
-/// define_measure_no_copy!(pub, Nian, pub(self), String, "年");
+/// define_no_copy_measure!(pub, Nian, pub(self), String, "年");
 ///
 /// let year = Nian("1999".to_string());
 /// let year_move = year;
@@ -69,7 +69,7 @@
 /// assert!(year_move == year);
 /// ```
 #[macro_export]
-macro_rules! define_measure_no_copy {
+macro_rules! define_no_copy_measure {
     (
         //The visibility of the type to create.
         $type_visibility: vis,

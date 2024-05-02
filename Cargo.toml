@@ -1,6 +1,6 @@
 [package]
 name = "chinese-format"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
 edition = "2021"
 description = "Convert data types to Chinese"

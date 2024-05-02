@@ -16,7 +16,7 @@
 /// ```
 /// use chinese_format::*;
 ///
-/// define_measure_multi_register!(pub, Jiao, pub, Count, "角", "毛");
+/// define_multi_register_measure!(pub, Jiao, pub, Count, "角", "毛");
 ///
 /// //Formal
 /// let two_formal = Jiao { value: Count(2), formal: true };
@@ -77,7 +77,7 @@
 /// });
 /// ```
 #[macro_export]
-macro_rules! define_measure_multi_register {
+macro_rules! define_multi_register_measure {
     (
         //The visibility of the type to create.
         $type_visibility: vis,
