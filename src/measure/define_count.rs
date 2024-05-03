@@ -10,7 +10,7 @@
 ///
 /// let four_jin = Jin::new(4);
 ///
-/// assert_eq!(four_jin.value(), Count(4));
+/// assert_eq!(four_jin.value().to_chinese(Variant::Simplified), "四");
 /// assert_eq!(four_jin.to_chinese(Variant::Simplified), "四斤");
 ///
 /// let four_count: Count = four_jin.into();

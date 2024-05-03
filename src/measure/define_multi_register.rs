@@ -33,8 +33,6 @@
 /// });
 /// assert_eq!(two_formal.to_chinese(Variant::Traditional), "兩角");
 ///
-/// assert_eq!(two_formal.value(), 2);
-/// assert_eq!(*two_formal.value_as_ref(), 2);
 /// assert!(two_formal.formal);
 ///
 /// let two_formal_count: Count = two_formal.into();
@@ -58,9 +56,7 @@
 ///     omissible: false
 /// });
 /// assert_eq!(two_informal.to_chinese(Variant::Traditional), "兩毛");
-///     
-/// assert_eq!(two_informal.value(), 2);
-/// assert_eq!(*two_informal.value_as_ref(), 2);
+///
 /// assert!(!two_informal.formal);
 ///
 /// let two_informal_count: Count = two_informal.into();
@@ -101,16 +97,6 @@ macro_rules! define_multi_register_measure {
         $type_visibility struct $type {
             $field_visibility value: $field_type,
             $field_visibility formal: bool,
-        }
-
-        impl $type {
-            pub fn value_as_ref(&self) -> &$field_type {
-                &self.value
-            }
-
-            pub fn value(&self) -> $field_type {
-                self.value
-            }
         }
 
         impl $crate::Measure for $type {

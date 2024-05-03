@@ -11,9 +11,6 @@
 ///
 /// let year_string: String = "2009".to_string();
 /// let year = Nian(year_string.clone());
-///     
-/// assert_eq!(year.value(), year_string);
-/// assert_eq!(*year.value_as_ref(), year_string);
 ///
 /// assert_eq!(year.value().to_chinese(Variant::Simplified), "2009");
 /// assert_eq!(year.value().to_chinese(Variant::Traditional), "2009");
@@ -88,16 +85,6 @@ macro_rules! define_no_copy_measure {
     ) => {
         #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
         $type_visibility struct $type($field_visibility $field_type);
-
-        impl $type {
-            pub fn value_as_ref(&self) -> &$field_type {
-                &self.0
-            }
-
-            pub fn value(&self) -> $field_type {
-                self.0.clone()
-            }
-        }
 
         impl $crate::Measure for $type {
             fn value<'a>(&'a self) -> Box<dyn 'a + $crate::ToChinese> {

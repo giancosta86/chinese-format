@@ -10,12 +10,6 @@
 /// * the derived implementations of [Debug], [Clone], [Copy],
 /// [PartialEq], [Eq], [PartialOrd], [Ord], [Hash].
 ///
-/// * two value-related methods:
-///
-///     * `value_as_ref()`, returning the underlying value as a *reference*.
-///
-///     * `value()`, returning a *copy* of the underlying value.
-///
 /// * a [From] conversion to the underlying data type
 ///
 /// ```
@@ -25,9 +19,6 @@
 /// define_measure!(pub, LiMi, pub(self), Count, ("厘米", "釐米"));
 ///
 /// let two = LiMi(Count(2));
-///     
-/// assert_eq!(two.value(), 2);
-/// assert_eq!(*two.value_as_ref(), 2);
 ///
 /// assert_eq!(two.value().to_chinese(Variant::Simplified), "两");
 /// assert_eq!(two.value().to_chinese(Variant::Traditional), "兩");
@@ -87,16 +78,6 @@ macro_rules! define_measure {
     ) => {
         #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
         $type_visibility struct $type($field_visibility $field_type);
-
-        impl $type {
-            pub fn value_as_ref(&self) -> &$field_type {
-                &self.0
-            }
-
-            pub fn value(&self) -> $field_type {
-                self.0
-            }
-        }
 
         impl $crate::Measure for $type {
             fn value<'a>(&'a self) -> Box<dyn 'a + $crate::ToChinese> {
