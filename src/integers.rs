@@ -17,7 +17,7 @@ macro_rules! impl_number_to_chinese {
                     ChineseCase::Lower,
                     ChineseCountMethod::TenThousand,
                 )
-                .expect("Converting a Chinese number should never fail!");
+                .expect("Converting an integer to Chinese should never fail!");
 
                 Chinese {
                     logograms,
