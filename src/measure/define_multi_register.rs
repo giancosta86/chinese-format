@@ -75,6 +75,32 @@
 #[macro_export]
 macro_rules! define_multi_register_measure {
     (
+        //The name of the PRIVATE type to create.
+        $type: ident,
+
+        //The visibility of the fields.
+        $field_visibility: vis,
+
+        //The underlying type - implementing the required traits.
+        $field_type: ty,
+
+        //Formal unit - implementing ToChinese.
+        $formal_unit: expr,
+
+        //Informal unit - implementing ToChinese.
+        $informal_unit: expr
+    ) => {
+        $crate::define_multi_register_measure!(
+            ,
+            $type,
+            $field_visibility,
+            $field_type,
+            $formal_unit,
+            $informal_unit
+        );
+    };
+
+    (
         //The visibility of the type to create.
         $type_visibility: vis,
 

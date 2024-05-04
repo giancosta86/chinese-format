@@ -68,6 +68,28 @@
 #[macro_export]
 macro_rules! define_no_copy_measure {
     (
+        //The name of the PRIVATE type to create.
+        $type: ident,
+
+        //The field visibility.
+        $field_visibility: vis,
+
+        //The field type - implementing the required traits.
+        $field_type: ty,
+
+        //The unit - implementing ToChinese.
+        $unit: expr
+    ) => {
+        $crate::define_no_copy_measure(
+            ,
+            $type,
+            $field_visibility,
+            $field_type,
+            $unit
+        );
+    };
+
+    (
         //The visibility of the type to create.
         $type_visibility: vis,
 
