@@ -1,6 +1,6 @@
 # chinese-format
 
-_Convert data types to Chinese_
+_Convert data types to Chinese, with Rust_
 
 [![CI](https://github.com/giancosta86/chinese-format/actions/workflows/publish-to-crates.yml/badge.svg)](https://github.com/giancosta86/chinese-format/actions/workflows/publish-to-crates.yml)
 
@@ -22,6 +22,8 @@ As a consequence, it provides:
 ## Optional features
 
 - **digit-sequence**: enables conversions to Chinese for [DigitSequence](https://crates.io/crates/digit-sequence)
+
+- **currency**: enables the whole `currency` module
 
 ## Crates.io
 

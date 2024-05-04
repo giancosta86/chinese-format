@@ -4,7 +4,7 @@
 //! As a consequence, it provides:
 //!
 //! * **ready-made conversions** for standard data types such as integers,
-//!   strings, ... - but also for fairly specific types like [DigitSequence](digit_sequence::DigitSequence).
+//!   strings, ... - but also for fairly specific types like `DigitSequence`.
 //!
 //! * **custom data types** - such as [Sign] and [Fraction].
 //!
@@ -28,6 +28,8 @@ mod strings;
 mod tuple;
 mod vector;
 
+#[cfg(feature = "currency")]
+pub mod currency;
 pub mod length;
 pub mod weight;
 
