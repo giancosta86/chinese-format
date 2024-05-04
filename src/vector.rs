@@ -75,6 +75,39 @@ impl ChineseVec {
         )
     }
 
+    /// Removes the left-most sequence of [Chinese] characters that are [omissible](Chinese::omissible).
+    ///
+    /// ```
+    /// use chinese_format::*;
+    /// use vec_box::*;
+    ///
+    /// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+    ///     0,
+    ///     "",
+    ///     Count(0),
+    ///     8,
+    ///     "",
+    ///     "好",
+    ///     "",
+    ///     0,
+    ///     Count(0)
+    /// ]).trim_start();
+    ///
+    /// assert_eq!(chinese_vec.collect(), Chinese{
+    ///     logograms: "八好零零".to_string(),
+    ///     omissible: false
+    /// });
+    /// ```
+    pub fn trim_start(&self) -> Self {
+        ChineseVec(
+            self.0
+                .iter()
+                .skip_while(|item| item.omissible)
+                .cloned()
+                .collect(),
+        )
+    }
+
     /// Removes the right-most sequence of [Chinese] characters that are [omissible](Chinese::omissible).
     ///
     /// ```
@@ -82,6 +115,9 @@ impl ChineseVec {
     /// use vec_box::*;
     ///
     /// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+    ///     0,
+    ///     "",
+    ///     Count(0),
     ///     8,
     ///     "",
     ///     "好",
@@ -91,7 +127,7 @@ impl ChineseVec {
     /// ]).trim_end();
     ///
     /// assert_eq!(chinese_vec.collect(), Chinese{
-    ///     logograms: "八好".to_string(),
+    ///     logograms: "零零八好".to_string(),
     ///     omissible: false
     /// });
     /// ```
