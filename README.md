@@ -4,6 +4,8 @@ _Convert data types to Chinese, with Rust_
 
 [![CI](https://github.com/giancosta86/chinese-format/actions/workflows/publish-to-crates.yml/badge.svg)](https://github.com/giancosta86/chinese-format/actions/workflows/publish-to-crates.yml)
 
+![Logo](docs/logo.svg)
+
 This crate focuses on converting data types to `Chinese`,
 which can be achieved by implementing the `ToChinese` trait.
 
