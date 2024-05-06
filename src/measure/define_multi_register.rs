@@ -131,13 +131,11 @@ macro_rules! define_multi_register_measure {
             }
 
             fn unit<'a>(&'a self) -> Box<dyn 'a + $crate::ToChinese> {
-                Box::new(
-                    if self.formal {
-                        $formal_unit
-                    } else {
-                        $informal_unit
-                    }
-                )
+                if self.formal {
+                    Box::new($formal_unit)
+                } else {
+                    Box::new($informal_unit)
+                }
             }
         }
 
