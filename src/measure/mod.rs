@@ -8,10 +8,10 @@ use crate::{Chinese, ToChinese, Variant};
 /// Trait describing a [value](Self::value) combined with a [unit](Self::unit) of measurement.
 pub trait Measure {
     /// The value, convertible to [Chinese].
-    fn value<'a>(&'a self) -> Box<dyn 'a + ToChinese>;
+    fn value(&self) -> &dyn ToChinese;
 
     /// The unit of measurement, convertible to [Chinese].
-    fn unit<'a>(&'a self) -> Box<dyn 'a + ToChinese>;
+    fn unit(&self) -> &dyn ToChinese;
 }
 
 /// [Measure] automatically implements [ToChinese],

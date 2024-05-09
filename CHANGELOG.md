@@ -1,3 +1,11 @@
+# Version 0.3.0
+
+- in `M̀easure`, the `value()` and `unit()` trait methods now return references in lieu of boxed instances
+
+- placeholder constructors now take references
+
+- `chinese_vec!` is the recommended way to create a `ChineseVec` from existing `ToChinese` instances
+
 # Version 0.2.0
 
 ## Measures

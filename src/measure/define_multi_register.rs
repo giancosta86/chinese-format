@@ -126,15 +126,15 @@ macro_rules! define_multi_register_measure {
         }
 
         impl $crate::Measure for $type {
-            fn value<'a>(&'a self) -> Box<dyn 'a + $crate::ToChinese> {
-                Box::new(self.value)
+            fn value(&self) -> &dyn $crate::ToChinese {
+                &self.value
             }
 
-            fn unit<'a>(&'a self) -> Box<dyn 'a + $crate::ToChinese> {
+            fn unit(&self) -> &dyn $crate::ToChinese {
                 if self.formal {
-                    Box::new($formal_unit)
+                    &$formal_unit
                 } else {
-                    Box::new($informal_unit)
+                    &$informal_unit
                 }
             }
         }

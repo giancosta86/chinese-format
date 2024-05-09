@@ -22,7 +22,7 @@
 /// ```
 /// use chinese_format::*;
 ///
-/// let placeholder_with_non_omissible = LingPlaceholder::new("二九零四".to_string());
+/// let placeholder_with_non_omissible = LingPlaceholder::new(&"二九零四");
 ///
 /// assert_eq!(placeholder_with_non_omissible.to_chinese(Variant::Simplified), Chinese {
 ///     logograms: "二九零四".to_string(),
@@ -32,7 +32,7 @@
 /// assert_eq!(placeholder_with_non_omissible.to_chinese(Variant::Traditional), "二九零四");
 ///
 ///
-/// let placeholder_with_omissible = LingPlaceholder::new(String::new());
+/// let placeholder_with_omissible = LingPlaceholder::new(&"");
 ///
 /// assert_eq!(placeholder_with_omissible.to_chinese(Variant::Simplified), Chinese {
 ///     logograms: "零".to_string(),
@@ -49,7 +49,7 @@
 /// ```
 /// use chinese_format::*;
 ///
-/// let placeholder_with_non_omissible = EmptyPlaceholder::new("二九零四".to_string());
+/// let placeholder_with_non_omissible = EmptyPlaceholder::new(&"二九零四");
 ///
 /// assert_eq!(placeholder_with_non_omissible.to_chinese(Variant::Simplified), Chinese {
 ///     logograms: "二九零四".to_string(),
@@ -59,7 +59,7 @@
 /// assert_eq!(placeholder_with_non_omissible.to_chinese(Variant::Traditional), "二九零四");
 ///
 ///
-/// let placeholder_with_omissible = EmptyPlaceholder::new(String::new());
+/// let placeholder_with_omissible = EmptyPlaceholder::new(&"");
 ///
 /// assert_eq!(placeholder_with_omissible.to_chinese(Variant::Simplified), Chinese {
 ///     logograms: "".to_string(),
@@ -84,15 +84,15 @@ macro_rules! define_string_placeholder {
         $doc_string: literal
     ) => {
         #[doc = $doc_string]
-        $type_visibility struct $type(Box<dyn $crate::ToChinese>);
+        $type_visibility struct $type<'a>(&'a dyn $crate::ToChinese);
 
-        impl $type {
-            pub fn new<T: 'static + $crate::ToChinese>(value: T) -> Self {
-                Self(Box::new(value))
+        impl <'a> $type<'a> {
+            pub fn new<T: 'static + $crate::ToChinese>(value: &'a T) -> Self {
+                Self(value)
             }
         }
 
-        impl $crate::ToChinese for $type {
+        impl <'a> $crate::ToChinese for $type<'a>{
             fn to_chinese(&self, variant: $crate::Variant) -> $crate::Chinese {
                 let wrapped_chinese = self.0.to_chinese(variant);
 

@@ -102,12 +102,12 @@ macro_rules! define_measure {
         $type_visibility struct $type($field_visibility $field_type);
 
         impl $crate::Measure for $type {
-            fn value<'a>(&'a self) -> Box<dyn 'a + $crate::ToChinese> {
-                Box::new(self.0)
+            fn value(&self) -> &dyn $crate::ToChinese {
+                &self.0
             }
 
-            fn unit<'a>(&'a self) -> Box<dyn 'a + $crate::ToChinese> {
-                Box::new($unit)
+            fn unit(&self) -> &dyn $crate::ToChinese {
+                &$unit
             }
         }
 

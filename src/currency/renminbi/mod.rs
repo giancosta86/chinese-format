@@ -5,12 +5,9 @@ mod yuan;
 use self::{cent::Cent, dime::Dime, yuan::Yuan};
 use super::CurrencyStyle;
 use crate::{
-    Chinese, ChineseVec, CrateResult, EmptyPlaceholder, FinancialBase, LingPlaceholder, ToChinese,
-    Variant,
+    chinese_vec, Chinese, ChineseVec, CrateResult, EmptyPlaceholder, FinancialBase,
+    LingPlaceholder, ToChinese, Variant,
 };
-use vec_box::vec_box;
-
-const FINANCIAL_TERMINATOR: &str = "整";
 
 /// Builds instances of [RenminbiCurrency] in a simple and consistent way.
 ///
@@ -199,6 +196,8 @@ pub struct RenminbiCurrency {
 }
 
 impl RenminbiCurrency {
+    const FINANCIAL_TERMINATOR: &'static str = "整";
+
     /// Returns the numeric value of the yuan (元) unit.
     pub fn yuan(&self) -> FinancialBase {
         self.yuan.into()
@@ -338,17 +337,19 @@ impl RenminbiCurrency {
 impl ToChinese for RenminbiCurrency {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         let dimes_box: Box<dyn ToChinese> = match self.style {
-            CurrencyStyle::Everyday { formal: false } => Box::new(LingPlaceholder::new(self.dimes)),
+            CurrencyStyle::Everyday { formal: false } => {
+                Box::new(LingPlaceholder::new(&self.dimes))
+            }
 
-            _ => Box::new(EmptyPlaceholder::new(self.dimes)),
+            _ => Box::new(EmptyPlaceholder::new(&self.dimes)),
         };
 
         let concatenated_components = ChineseVec::from(
             variant,
             vec![
-                Box::new(EmptyPlaceholder::new(self.yuan)),
-                dimes_box,
-                Box::new(EmptyPlaceholder::new(self.cents)),
+                &EmptyPlaceholder::new(&self.yuan),
+                dimes_box.as_ref(),
+                &EmptyPlaceholder::new(&self.cents),
             ],
         )
         .trim_start()
@@ -361,9 +362,9 @@ impl ToChinese for RenminbiCurrency {
         };
 
         match self.style {
-            CurrencyStyle::Financial => ChineseVec::from(
+            CurrencyStyle::Financial => chinese_vec!(
                 variant,
-                vec_box![coalesced_result.logograms, FINANCIAL_TERMINATOR],
+                [coalesced_result.logograms, Self::FINANCIAL_TERMINATOR]
             )
             .collect(),
 

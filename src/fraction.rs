@@ -1,5 +1,4 @@
-use crate::{Chinese, ChineseVec, CrateError, CrateResult, Sign, ToChinese, Variant};
-use vec_box::vec_box;
+use crate::{chinese_vec, Chinese, CrateError, CrateResult, Sign, ToChinese, Variant};
 
 /// A fraction, convertible to Chinese.
 ///
@@ -104,14 +103,14 @@ impl Fraction {
 impl ToChinese for Fraction {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         if self.numerator != 0 {
-            ChineseVec::from(
+            chinese_vec!(
                 variant,
-                vec_box![
+                [
                     Sign(self.numerator),
                     self.denominator,
                     "分之",
-                    self.numerator.abs()
-                ],
+                    self.numerator.abs(),
+                ]
             )
             .collect()
         } else {

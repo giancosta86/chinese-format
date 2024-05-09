@@ -1,5 +1,49 @@
 use crate::{Chinese, ToChinese, Variant};
 
+/// Creates [ChineseVec] instances with elegant simplicity.
+///
+/// It works almost like [ChineseVec::from], but you just need to pass *instances* of [ToChinese] instead of *references* - the `&` is added automatically.
+///
+/// ```
+/// use chinese_format::*;
+///
+/// let empty_vec = chinese_vec!(Variant::Simplified, []);
+///
+/// assert_eq!(empty_vec.collect(), Chinese {
+///     logograms: "".to_string(),
+///     omissible: true
+/// });
+///
+///
+/// let one_item_vec = chinese_vec!(Variant::Simplified, [90]);
+///
+/// assert_eq!(one_item_vec.collect(), Chinese {
+///     logograms: "九十".to_string(),
+///     omissible: false
+/// });
+///
+///
+/// let two_item_vec = chinese_vec!(Variant::Simplified, [
+///     "你好",
+///     38,
+/// ]);
+///
+/// assert_eq!(two_item_vec.collect(), Chinese {
+///     logograms: "你好三十八".to_string(),
+///     omissible: false
+/// });
+/// ```
+///
+#[macro_export]
+macro_rules! chinese_vec {
+    ($variant: expr, [$($item: expr),* $(,)?]) => {{
+        let chinese_vector: $crate::ChineseVec =
+        vec![ $($item.to_chinese($variant)),* ].into();
+
+        chinese_vector
+    }};
+}
+
 /// A vector containing [Chinese] expressions.
 ///
 /// It can be manipulated with functional methods
@@ -11,7 +55,6 @@ use crate::{Chinese, ToChinese, Variant};
 ///
 /// ```
 /// use chinese_format::*;
-/// use vec_box::*;
 ///
 /// let first_vec: ChineseVec = vec![
 ///     Chinese {
@@ -30,7 +73,7 @@ use crate::{Chinese, ToChinese, Variant};
 /// });
 ///
 ///
-/// let second_vec = ChineseVec::from(Variant::Traditional, vec_box![
+/// let second_vec = chinese_vec!(Variant::Traditional, [
 ///     Count(2),
 ///     ("厘米", "釐米")
 /// ]);
@@ -46,18 +89,19 @@ impl ChineseVec {
     /// Creates a new [ChineseVec] by converting a sequence of [ToChinese],
     /// according to the given [Variant].
     ///
+    /// Except specific needs, you'll most often prefer [chinese_vec].
+    ///
     /// ```
     /// use chinese_format::*;
-    /// use vec_box::*;
     ///
     /// //Toy example based on the real implementation of Fraction.
     /// let chinese_vec = ChineseVec::from(
     ///     Variant::Simplified,
-    ///     vec_box![
-    ///         Sign(-5),
-    ///         7,
-    ///         "分之",
-    ///         5
+    ///     vec![
+    ///         &Sign(-5),
+    ///         &7,
+    ///         &"分之",
+    ///         &5
     ///     ]
     /// );
     ///
@@ -66,7 +110,7 @@ impl ChineseVec {
     ///     omissible: false
     /// });
     /// ```
-    pub fn from(variant: Variant, source: Vec<Box<dyn ToChinese>>) -> ChineseVec {
+    pub fn from(variant: Variant, source: Vec<&dyn ToChinese>) -> ChineseVec {
         Self(
             source
                 .into_iter()
@@ -79,9 +123,8 @@ impl ChineseVec {
     ///
     /// ```
     /// use chinese_format::*;
-    /// use vec_box::*;
     ///
-    /// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+    /// let chinese_vec = chinese_vec!(Variant::Simplified, [
     ///     0,
     ///     "",
     ///     Count(0),
@@ -112,9 +155,8 @@ impl ChineseVec {
     ///
     /// ```
     /// use chinese_format::*;
-    /// use vec_box::*;
     ///
-    /// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+    /// let chinese_vec = chinese_vec!(Variant::Simplified, [
     ///     0,
     ///     "",
     ///     Count(0),
@@ -157,9 +199,8 @@ impl ChineseVec {
     ///
     /// ```
     /// use chinese_format::{*, length::*};
-    /// use vec_box::*;
     ///
-    /// let basic: ChineseVec = ChineseVec::from(Variant::Simplified, vec_box![
+    /// let basic: ChineseVec = chinese_vec!(Variant::Simplified, [
     ///     9,
     ///     "点",
     ///     4,
@@ -176,13 +217,13 @@ impl ChineseVec {
     ///     omissible: true
     /// });
     ///
-    /// let only_omissible = ChineseVec::from(Variant::Simplified, vec_box![
+    /// let only_omissible = chinese_vec!(Variant::Simplified, [
     ///     0,
     ///     Count(0),
     ///     "",
-    ///     ChineseVec::from(Variant::Simplified, vec_box![
+    ///     chinese_vec!(Variant::Simplified, [
     ///         Sign(9),
-    ///         EmptyPlaceholder::new(Meter::new(0))
+    ///         EmptyPlaceholder::new(&Meter::new(0))
     ///     ]),
     ///     ("", "Test")
     /// ]);
@@ -243,9 +284,8 @@ impl From<Vec<Chinese>> for ChineseVec {
 ///
 /// ```
 /// use chinese_format::*;
-/// use vec_box::*;
 ///
-/// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+/// let chinese_vec = chinese_vec!(Variant::Simplified, [
 ///     "飞",
 ///     "机"
 /// ]);
@@ -263,9 +303,8 @@ impl ToChinese for ChineseVec {
 ///
 /// ```
 /// use chinese_format::*;
-/// use vec_box::*;
 ///
-/// let chinese_vec = ChineseVec::from(Variant::Simplified, vec_box![
+/// let chinese_vec = chinese_vec!(Variant::Simplified, [
 ///     "你好",
 ///     "生日快乐"
 /// ]);
