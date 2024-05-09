@@ -51,7 +51,12 @@ macro_rules! chinese_vec {
 /// reduced to a single [Chinese] instance via [collect](Self::collect).
 ///
 /// It can be instantiated using a `.into()` conversion from a `Vec<Chinese>`,
-/// but also - and especially - via its [from](Self::from) method for [ToChinese] instances:
+/// but also - and especially :
+///
+/// * using the [chinese_vec] macro, passing instances implementing [ToChinese].
+///  
+/// * via its [from](Self::from) method for [ToChinese] instances,
+///   for more fine-grained control.
 ///
 /// ```
 /// use chinese_format::*;
@@ -80,6 +85,17 @@ macro_rules! chinese_vec {
 ///
 /// assert_eq!(second_vec.collect(), Chinese {
 ///     logograms: "兩釐米".to_string(),
+///     omissible: false
+/// });
+///
+///
+/// let third_vec = ChineseVec::from(Variant::Traditional, vec![
+///     &Count(7),
+///     &("厘米", "釐米")
+/// ]);
+///
+/// assert_eq!(third_vec.collect(), Chinese {
+///     logograms: "七釐米".to_string(),
 ///     omissible: false
 /// });
 /// ```
