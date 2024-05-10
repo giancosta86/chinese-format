@@ -30,3 +30,4 @@ speculate2 = "0.2"
 [features]
 default = []
 currency = []
+date = ["digit-sequence"]

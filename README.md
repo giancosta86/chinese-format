@@ -28,6 +28,10 @@ As a consequence, it provides:
 
 - **currency**: enables the whole `currency` module
 
+- **date**: enables the `date` module
+
+  _Also enables_: **digit-sequence**
+
 ## Crates.io
 
 https://crates.io/crates/chinese-format
