@@ -30,8 +30,8 @@ mod vector;
 
 #[cfg(feature = "currency")]
 pub mod currency;
-#[cfg(feature = "date")]
-pub mod date;
+#[cfg(feature = "gregorian")]
+pub mod gregorian;
 pub mod length;
 pub mod weight;
 

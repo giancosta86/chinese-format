@@ -3,7 +3,7 @@
 /// Each day can also be cast to its corresponding ordinal:
 ///
 /// ```
-/// use chinese_format::{*, date::*};
+/// use chinese_format::{*, gregorian::*};
 ///
 /// assert_eq!(WeekDay::Wednesday as u8, 3);
 /// ```

@@ -28,7 +28,7 @@ As a consequence, it provides:
 
 - **currency**: enables the whole `currency` module
 
-- **date**: enables the `date` module
+- **gregorian**: enables the `gregorian` module
 
   _Also enables_: **digit-sequence**
 

@@ -1,3 +1,7 @@
+# Version 0.4.0
+
+- `date` module renamed to `gregorian` - as well as the related feature
+
 # Version 0.3.0
 
 - in `M̀easure`, the `value()` and `unit()` trait methods now return references in lieu of boxed instances

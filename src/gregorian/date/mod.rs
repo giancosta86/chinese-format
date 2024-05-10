@@ -1,8 +1,3 @@
-//! Chinese translation of the Gregorian calendar.
-//!
-//! In particular, [DateBuilder] is the starting point - used to create
-//! dates of different formats.
-
 mod day;
 mod month;
 mod styled_week_day;
@@ -32,7 +27,7 @@ lazy_static! {
 /// consistency is **not** checked for week days, which can therefore be arbitrary.
 ///
 /// ```
-/// use chinese_format::{*, date::*};
+/// use chinese_format::{*, gregorian::*};
 ///
 /// # fn main() -> GenericResult<()> {
 /// let date = DateBuilder::new()
@@ -62,7 +57,7 @@ lazy_static! {
 /// as well as a range of reasonable patterns:
 ///
 /// ```
-/// use chinese_format::{*, date::*};
+/// use chinese_format::{*, gregorian::*};
 ///
 /// # fn main() -> GenericResult<()> {
 /// let single_year = DateBuilder::new()
@@ -143,7 +138,7 @@ lazy_static! {
 /// most suitable [CrateError].
 ///
 /// ```
-/// use chinese_format::{*, date::*};
+/// use chinese_format::{*, gregorian::*};
 ///
 /// # fn main() -> GenericResult<()> {
 /// let absurd_builder = DateBuilder::new()
@@ -194,7 +189,7 @@ lazy_static! {
 /// As an exception, the consistency of week day is not ensured:
 ///
 /// ```
-/// use chinese_format::{*, date::*};
+/// use chinese_format::{*, gregorian::*};
 ///
 /// # fn main() -> GenericResult<()> {
 /// let one_day_as_monday = DateBuilder::new()
