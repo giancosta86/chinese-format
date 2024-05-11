@@ -40,6 +40,21 @@ pub type CrateResult<T> = Result<T, CrateError>;
 ///     }.to_string(),
 ///     "Invalid date: 1986-2-31"
 /// );
+///
+/// assert_eq!(
+///     CrateError::HourOutOfRange(90).to_string(),
+///     "Hour out of range: 90"
+/// );
+///
+/// assert_eq!(
+///     CrateError::MinuteOutOfRange(90).to_string(),
+///     "Minute out of range: 90"
+/// );
+///
+/// assert_eq!(
+///     CrateError::SecondOutOfRange(90).to_string(),
+///     "Second out of range: 90"
+/// );
 /// ```
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CrateError {
@@ -54,6 +69,9 @@ pub enum CrateError {
         month: u8,
         day: u8,
     },
+    HourOutOfRange(u8),
+    MinuteOutOfRange(u8),
+    SecondOutOfRange(u8),
 }
 
 impl_err_equality!(CrateError);
@@ -80,6 +98,12 @@ impl Display for CrateError {
 
                 None => write!(f, "Invalid date: {}-{}", month, day),
             },
+
+            Self::HourOutOfRange(hour) => write!(f, "Hour out of range: {}", hour),
+
+            Self::MinuteOutOfRange(minute) => write!(f, "Minute out of range: {}", minute),
+
+            Self::SecondOutOfRange(second) => write!(f, "Second out of range: {}", second),
         }
     }
 }

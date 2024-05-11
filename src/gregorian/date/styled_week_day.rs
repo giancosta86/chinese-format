@@ -42,25 +42,25 @@ mod tests {
                 };
                 eq!(friday.to_chinese(Variant::Simplified), "星期五");
 
-                let sunday_xing_qi = StyledWeekDay{
+                let sunday_xing_qi = StyledWeekDay {
                     week_format: WeekFormat::XingQi,
                     week_day: WeekDay::Sunday,
                 };
                 eq!(sunday_xing_qi.to_chinese(Variant::Simplified), "星期天");
 
-                let sunday_zhou = StyledWeekDay{
+                let sunday_zhou = StyledWeekDay {
                     week_format: WeekFormat::Zhou,
                     week_day: WeekDay::Sunday,
                 };
                 eq!(sunday_zhou.to_chinese(Variant::Simplified), "周日");
 
-                let wednesday_xing_qi = StyledWeekDay{
+                let wednesday_xing_qi = StyledWeekDay {
                     week_format: WeekFormat::XingQi,
                     week_day: WeekDay::Wednesday,
                 };
                 eq!(wednesday_xing_qi.to_chinese(Variant::Simplified), "星期三");
 
-                let wednesday_zhou = StyledWeekDay{
+                let wednesday_zhou = StyledWeekDay {
                     week_format: WeekFormat::Zhou,
                     week_day: WeekDay::Wednesday,
                 };
