@@ -87,7 +87,7 @@ macro_rules! define_string_placeholder {
         $type_visibility struct $type<'a>(&'a dyn $crate::ToChinese);
 
         impl <'a> $type<'a> {
-            pub fn new<T: 'static + $crate::ToChinese>(value: &'a T) -> Self {
+            pub fn new<T: $crate::ToChinese>(value: &'a T) -> Self {
                 Self(value)
             }
         }
