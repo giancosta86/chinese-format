@@ -5,8 +5,8 @@ mod yuan;
 use self::{cent::Cent, dime::Dime, yuan::Yuan};
 use super::CurrencyStyle;
 use crate::{
-    chinese_vec, Chinese, ChineseVec, CrateResult, EmptyPlaceholder, FinancialBase,
-    LingPlaceholder, ToChinese, Variant,
+    chinese_vec, Chinese, CrateResult, EmptyPlaceholder, FinancialBase, LingPlaceholder, ToChinese,
+    Variant,
 };
 
 /// Builds instances of [RenminbiCurrency] in a simple and consistent way.
@@ -344,13 +344,13 @@ impl ToChinese for RenminbiCurrency {
             _ => Box::new(EmptyPlaceholder::new(&self.dimes)),
         };
 
-        let concatenated_components = ChineseVec::from(
+        let concatenated_components = chinese_vec!(
             variant,
-            vec![
-                &EmptyPlaceholder::new(&self.yuan),
-                dimes_box.as_ref(),
-                &EmptyPlaceholder::new(&self.cents),
-            ],
+            [
+                EmptyPlaceholder::new(&self.yuan),
+                dimes_box,
+                EmptyPlaceholder::new(&self.cents),
+            ]
         )
         .trim_start()
         .collect();
