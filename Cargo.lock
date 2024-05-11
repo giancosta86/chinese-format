@@ -46,9 +46,9 @@ checksum = "56254986775e3233ffa9c4d7d3faaf6d36a2c09d30b20687e9f88bc8bafc16c8"
 
 [[package]]
 name = "digit-sequence"
-version = "0.3.2"
+version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27d89fa404825ce0160a8a9577e01aa574ad0ee61c2f6a93c5ababd564e843d1"
+checksum = "88e8757ce311843a028783422f4a1d4f9dd7b3fa84c235459852f7937b3a36bc"
 
 [[package]]
 name = "dyn-error"
