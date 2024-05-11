@@ -15,6 +15,8 @@
 mod chinese;
 mod count;
 #[cfg(feature = "digit-sequence")]
+mod decimal;
+#[cfg(feature = "digit-sequence")]
 mod digit_sequences;
 mod financial;
 mod fraction;
@@ -37,6 +39,8 @@ pub mod weight;
 
 pub use chinese::*;
 pub use count::*;
+#[cfg(feature = "digit-sequence")]
+pub use decimal::*;
 pub use financial::*;
 pub use fraction::*;
 pub use measure::*;

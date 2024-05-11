@@ -24,11 +24,15 @@ As a consequence, it provides:
 
 ## Optional features
 
-- **digit-sequence**: enables conversions to Chinese for [DigitSequence](https://crates.io/crates/digit-sequence)
+- **digit-sequence**:
 
-- **currency**: enables the whole `currency` module
+  - enables conversions to Chinese for [DigitSequence](https://crates.io/crates/digit-sequence)
 
-- **gregorian**: enables the `gregorian` module
+  - enables the `Decimal` and `IntegerPart` types
+
+- **currency**: enables the whole `currency` module for monetary conversions.
+
+- **gregorian**: enables the `gregorian` module for date/time conversions.
 
   _Also enables_: **digit-sequence**
 
