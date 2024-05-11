@@ -152,7 +152,7 @@ impl ChineseVec {
     ///     Count(0)
     /// ]).trim_start();
     ///
-    /// assert_eq!(chinese_vec.collect(), Chinese{
+    /// assert_eq!(chinese_vec.collect(), Chinese {
     ///     logograms: "八好零零".to_string(),
     ///     omissible: false
     /// });
@@ -184,7 +184,7 @@ impl ChineseVec {
     ///     Count(0)
     /// ]).trim_end();
     ///
-    /// assert_eq!(chinese_vec.collect(), Chinese{
+    /// assert_eq!(chinese_vec.collect(), Chinese {
     ///     logograms: "零零八好".to_string(),
     ///     omissible: false
     /// });

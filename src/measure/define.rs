@@ -49,11 +49,11 @@
 ///
 ///     
 ///     let zero = LiMi(Count(0));
-///     assert_eq!(zero.to_chinese(Variant::Simplified), Chinese{
+///     assert_eq!(zero.to_chinese(Variant::Simplified), Chinese {
 ///         logograms: "零厘米".to_string(),
 ///         omissible: true
 ///     });
-///     assert_eq!(zero.to_chinese(Variant::Traditional), Chinese{
+///     assert_eq!(zero.to_chinese(Variant::Traditional), Chinese {
 ///         logograms: "零釐米".to_string(),
 ///         omissible: true
 ///     });

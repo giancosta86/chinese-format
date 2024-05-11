@@ -41,11 +41,11 @@
 ///
 ///     
 /// let empty_year = Nian(String::new());
-/// assert_eq!(empty_year.to_chinese(Variant::Simplified), Chinese{
+/// assert_eq!(empty_year.to_chinese(Variant::Simplified), Chinese {
 ///     logograms: "年".to_string(),
 ///     omissible: true
 /// });
-/// assert_eq!(empty_year.to_chinese(Variant::Traditional), Chinese{
+/// assert_eq!(empty_year.to_chinese(Variant::Traditional), Chinese {
 ///     logograms: "年".to_string(),
 ///     omissible: true
 /// });

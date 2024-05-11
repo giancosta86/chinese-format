@@ -27,7 +27,7 @@
 /// assert_eq!(two_formal.unit().to_chinese(Variant::Simplified), "角");
 /// assert_eq!(two_formal.unit().to_chinese(Variant::Traditional), "角");
 ///
-/// assert_eq!(two_formal.to_chinese(Variant::Simplified), Chinese{
+/// assert_eq!(two_formal.to_chinese(Variant::Simplified), Chinese {
 ///     logograms: "两角".to_string(),
 ///     omissible: false
 /// });
@@ -51,7 +51,7 @@
 /// assert_eq!(two_informal.unit().to_chinese(Variant::Simplified), "毛");
 /// assert_eq!(two_informal.unit().to_chinese(Variant::Traditional), "毛");
 ///
-/// assert_eq!(two_informal.to_chinese(Variant::Simplified), Chinese{
+/// assert_eq!(two_informal.to_chinese(Variant::Simplified), Chinese {
 ///     logograms: "两毛".to_string(),
 ///     omissible: false
 /// });

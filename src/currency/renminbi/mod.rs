@@ -21,7 +21,7 @@ use crate::{
 ///         .with_yuan(9)
 ///         .with_dimes(3)
 ///         .with_cents(8)
-///         .with_style(CurrencyStyle::Everyday{formal: true})
+///         .with_style(CurrencyStyle::Everyday { formal: true })
 ///         .build()?;
 ///
 /// assert_eq!(formal.to_chinese(Variant::Simplified), Chinese {
@@ -34,7 +34,7 @@ use crate::{
 ///         .with_yuan(7)
 ///         .with_dimes(4)
 ///         .with_cents(5)
-///         .with_style(CurrencyStyle::Everyday{formal: false})
+///         .with_style(CurrencyStyle::Everyday { formal: false })
 ///         .build()?;
 ///
 /// assert_eq!(informal.to_chinese(Variant::Simplified), Chinese {
