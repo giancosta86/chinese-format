@@ -1,21 +1,16 @@
 mod day;
 mod month;
+mod pattern;
 mod styled_week_day;
 mod week_day;
 mod week_format;
 mod year;
 
+pub use self::pattern::*;
 pub use self::week_day::*;
 pub use self::week_format::*;
 use self::{day::Day, month::Month, styled_week_day::StyledWeekDay, year::Year};
 use crate::{chinese_vec, Chinese, CrateError, CrateResult, EmptyPlaceholder, ToChinese, Variant};
-use lazy_static::lazy_static;
-use std::collections::HashSet;
-
-lazy_static! {
-    static ref ALLOWED_DATE_PATTERNS: HashSet<&'static str> =
-        HashSet::from(["y", "m", "d", "w", "ym", "ymd", "md", "mdw", "dw", "ymdw"]);
-}
 
 /// Provides a configurable way to build [Date] instances.
 ///
@@ -264,22 +259,6 @@ impl DateBuilder {
         self
     }
 
-    fn validate_pattern(&self) -> CrateResult<()> {
-        let pattern = format!(
-            "{}{}{}{}",
-            self.year.map(|_| "y").unwrap_or(""),
-            self.month.map(|_| "m").unwrap_or(""),
-            self.day.map(|_| "d").unwrap_or(""),
-            self.week_day.map(|_| "w").unwrap_or("")
-        );
-
-        if ALLOWED_DATE_PATTERNS.contains(pattern.as_str()) {
-            Ok(())
-        } else {
-            Err(CrateError::InvalidDatePattern(pattern))
-        }
-    }
-
     fn validate_consistency(&self, year: Option<&Year>) -> CrateResult<()> {
         let is_leap_year = year.map(Year::is_leap).unwrap_or(true);
 
@@ -310,7 +289,12 @@ impl DateBuilder {
     /// Creates a [Date] instance based on the current parameters,
     /// after performing validation.
     pub fn build(&self) -> CrateResult<Date> {
-        self.validate_pattern()?;
+        DatePattern::validate(DatePatternFlags {
+            year: self.year.is_some(),
+            month: self.month.is_some(),
+            day: self.day.is_some(),
+            week_day: self.week_day.is_some(),
+        })?;
 
         let year: Option<Year> = self.year.map(|year| year.into());
 

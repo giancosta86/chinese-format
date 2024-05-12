@@ -1,6 +1,6 @@
 [package]
 name = "chinese-format"
-version = "0.4.0"
+version = "0.4.1"
 authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
 edition = "2021"
 description = "Convert data types to Chinese, with Rust"
