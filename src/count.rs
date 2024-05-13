@@ -1,4 +1,4 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 use std::cmp::Ordering;
 
 /// The integer type on which [Count] is based.
@@ -59,7 +59,7 @@ impl PartialOrd<CountBase> for Count {
 /// * `兩` in [Variant::Traditional]
 ///
 /// ```
-/// use chinese_format::{Chinese, Count, ToChinese, Variant};
+/// use chinese_format::{Chinese, Count, ChineseFormat, Variant};
 ///
 /// //Positive numbers
 /// assert_eq!(Count(7).to_chinese(Variant::Simplified), Chinese {
@@ -79,7 +79,7 @@ impl PartialOrd<CountBase> for Count {
 /// assert_eq!(Count(2).to_chinese(Variant::Simplified), "两");
 /// assert_eq!(Count(2).to_chinese(Variant::Traditional), "兩");
 /// ```
-impl ToChinese for Count {
+impl ChineseFormat for Count {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         if self.0 == 2 {
             ("两", "兩").to_chinese(variant)

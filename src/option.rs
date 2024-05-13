@@ -1,6 +1,6 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 
-/// The [Option] of a [ToChinese] is a [ToChinese] itself.
+/// The [Option] of a [ChineseFormat] is a [ChineseFormat] itself.
 ///
 /// In particular:
 ///
@@ -35,7 +35,7 @@ use crate::{Chinese, ToChinese, Variant};
 ///     }
 /// );
 /// ```
-impl<T: ToChinese> ToChinese for Option<T> {
+impl<T: ChineseFormat> ChineseFormat for Option<T> {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         match self {
             Some(value) => value.to_chinese(variant),

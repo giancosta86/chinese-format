@@ -1,4 +1,4 @@
-use crate::{chinese_vec, Chinese, Count, Measure, ToChinese, Variant};
+use crate::{chinese_vec, Chinese, ChineseFormat, Count, Measure, Variant};
 
 const HOUR_UNIT: (&str, &str) = ("点", "點");
 
@@ -11,18 +11,18 @@ pub trait Hour {
 /// Can be converted to a [Measure],
 /// using its clock value plus the `点`/`點` unit.
 impl<T: Hour> Measure for T {
-    fn value(&self) -> &dyn ToChinese {
+    fn value(&self) -> &dyn ChineseFormat {
         self.clock_value()
     }
 
-    fn unit(&self) -> &dyn ToChinese {
+    fn unit(&self) -> &dyn ChineseFormat {
         &HOUR_UNIT
     }
 }
 
 /// Also, any generic [Box] containing an implementation
 /// can be converted to [Chinese].
-impl ToChinese for Box<dyn Hour> {
+impl ChineseFormat for Box<dyn Hour> {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         chinese_vec!(variant, [self.clock_value(), HOUR_UNIT]).collect()
     }

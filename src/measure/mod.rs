@@ -3,18 +3,18 @@ mod define_count;
 mod define_multi_register;
 mod define_no_copy;
 
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 
 /// Trait describing a [value](Self::value) combined with a [unit](Self::unit) of measurement.
 pub trait Measure {
     /// The value, convertible to [Chinese].
-    fn value(&self) -> &dyn ToChinese;
+    fn value(&self) -> &dyn ChineseFormat;
 
     /// The unit of measurement, convertible to [Chinese].
-    fn unit(&self) -> &dyn ToChinese;
+    fn unit(&self) -> &dyn ChineseFormat;
 }
 
-/// [Measure] automatically implements [ToChinese],
+/// [Measure] automatically implements [ChineseFormat],
 /// because its [Chinese] translation is obtained by concatenating
 /// the logograms of its [value](Measure::value) and the logograms of its [unit](Measure::unit).
 ///
@@ -39,7 +39,7 @@ pub trait Measure {
 ///     omissible: true
 /// });
 /// ```
-impl<T: Measure> ToChinese for T {
+impl<T: Measure> ChineseFormat for T {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         let value_chinese = self.value().to_chinese(variant);
 

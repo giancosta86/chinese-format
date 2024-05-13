@@ -1,4 +1,4 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 
 /// The Chinese ways to describe a week.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -21,7 +21,7 @@ impl Default for WeekFormat {
 }
 
 /// Each [WeekFormat] can be converted to [Chinese]:
-impl ToChinese for WeekFormat {
+impl ChineseFormat for WeekFormat {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         match self {
             Self::XingQi => "星期".to_chinese(variant),

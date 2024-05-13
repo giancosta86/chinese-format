@@ -84,10 +84,10 @@ macro_rules! define_multi_register_measure {
         //The underlying type - implementing the required traits.
         $field_type: ty,
 
-        //Formal unit - implementing ToChinese.
+        //Formal unit - implementing ChineseFormat.
         $formal_unit: expr,
 
-        //Informal unit - implementing ToChinese.
+        //Informal unit - implementing ChineseFormat.
         $informal_unit: expr
     ) => {
         $crate::define_multi_register_measure!(
@@ -113,10 +113,10 @@ macro_rules! define_multi_register_measure {
         //The underlying type - implementing the required traits.
         $field_type: ty,
 
-        //Formal unit - implementing ToChinese.
+        //Formal unit - implementing ChineseFormat.
         $formal_unit: expr,
 
-        //Informal unit - implementing ToChinese.
+        //Informal unit - implementing ChineseFormat.
         $informal_unit: expr
     ) => {
         #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -126,11 +126,11 @@ macro_rules! define_multi_register_measure {
         }
 
         impl $crate::Measure for $type {
-            fn value(&self) -> &dyn $crate::ToChinese {
+            fn value(&self) -> &dyn $crate::ChineseFormat {
                 &self.value
             }
 
-            fn unit(&self) -> &dyn $crate::ToChinese {
+            fn unit(&self) -> &dyn $crate::ChineseFormat {
                 if self.formal {
                     &$formal_unit
                 } else {

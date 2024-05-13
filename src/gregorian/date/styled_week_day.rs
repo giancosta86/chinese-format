@@ -1,5 +1,5 @@
 use super::{WeekDay, WeekFormat};
-use crate::{chinese_vec, Chinese, ToChinese, Variant};
+use crate::{chinese_vec, Chinese, ChineseFormat, Variant};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StyledWeekDay {
@@ -21,7 +21,7 @@ impl StyledWeekDay {
 }
 
 /// [WeekDay] can be converted to [Chinese].
-impl ToChinese for StyledWeekDay {
+impl ChineseFormat for StyledWeekDay {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         chinese_vec!(variant, [self.week_format, self.ordinal_logogram(variant)]).collect()
     }

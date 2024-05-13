@@ -1,4 +1,4 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 use digit_sequence::DigitSequence;
 use lazy_static::lazy_static;
 use std::collections::HashMap;
@@ -58,7 +58,7 @@ lazy_static! {
 /// # Ok(())
 /// # }
 /// ```
-impl ToChinese for DigitSequence {
+impl ChineseFormat for DigitSequence {
     fn to_chinese(&self, _variant: Variant) -> Chinese {
         let logograms: String = self
             .iter()

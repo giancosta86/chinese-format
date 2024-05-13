@@ -1,5 +1,5 @@
 //! This crate focuses on converting data types to [Chinese],
-//! which can be achieved by implementing the [ToChinese] trait.
+//! which can be achieved by implementing the [ChineseFormat] trait.
 //!
 //! As a consequence, it provides:
 //!

@@ -1,5 +1,5 @@
 use super::{Hour12, Minute};
-use crate::{chinese_vec, Chinese, ToChinese, Variant};
+use crate::{chinese_vec, Chinese, ChineseFormat, Variant};
 
 /// Time expressed as minutes (a *delta*) past/to an hour.
 ///
@@ -122,7 +122,7 @@ const BAN: &str = "半";
 
 const CHA: &str = "差";
 
-impl ToChinese for DeltaTime {
+impl ChineseFormat for DeltaTime {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         match self.minute.into() {
             0 => chinese_vec!(variant, [self.hour, ZHONG]),

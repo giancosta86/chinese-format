@@ -1,8 +1,8 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 
 /// Creates [ChineseVec] instances with elegant simplicity.
 ///
-/// It works almost like [ChineseVec::from], but you just need to pass *instances* of [ToChinese] instead of *references* - the `&` is added automatically.
+/// It works almost like [ChineseVec::from], but you just need to pass *instances* of [ChineseFormat] instead of *references* - the `&` is added automatically.
 ///
 /// ```
 /// use chinese_format::*;
@@ -53,9 +53,9 @@ macro_rules! chinese_vec {
 /// It can be instantiated using a `.into()` conversion from a `Vec<Chinese>`,
 /// but also - and especially :
 ///
-/// * using the [chinese_vec] macro, passing instances implementing [ToChinese].
+/// * using the [chinese_vec] macro, passing instances implementing [ChineseFormat].
 ///  
-/// * via its [from](Self::from) method for [ToChinese] instances,
+/// * via its [from](Self::from) method for [ChineseFormat] instances,
 ///   for more fine-grained control.
 ///
 /// ```
@@ -102,7 +102,7 @@ macro_rules! chinese_vec {
 pub struct ChineseVec(Vec<Chinese>);
 
 impl ChineseVec {
-    /// Creates a new [ChineseVec] by converting a sequence of [ToChinese],
+    /// Creates a new [ChineseVec] by converting a sequence of [ChineseFormat],
     /// according to the given [Variant].
     ///
     /// Except specific needs, you'll most often prefer [chinese_vec].
@@ -126,7 +126,7 @@ impl ChineseVec {
     ///     omissible: false
     /// });
     /// ```
-    pub fn from(variant: Variant, source: Vec<&dyn ToChinese>) -> ChineseVec {
+    pub fn from(variant: Variant, source: Vec<&dyn ChineseFormat>) -> ChineseVec {
         Self(
             source
                 .into_iter()
@@ -293,7 +293,7 @@ impl From<Vec<Chinese>> for ChineseVec {
     }
 }
 
-/// [ChineseVec] supports [ToChinese] via its [collect](Self::collect) method.
+/// [ChineseVec] supports [ChineseFormat] via its [collect](Self::collect) method.
 ///
 /// Of course, the [Variant] parameter is ignored - because the
 /// [Chinese] instances are already available in the vector.
@@ -309,7 +309,7 @@ impl From<Vec<Chinese>> for ChineseVec {
 /// //In traditional script, 飞 is written 飛! No conversion can be performed.
 /// assert_eq!(chinese_vec.to_chinese(Variant::Traditional), "飞机");
 /// ```
-impl ToChinese for ChineseVec {
+impl ChineseFormat for ChineseVec {
     fn to_chinese(&self, _variant: Variant) -> Chinese {
         self.collect()
     }

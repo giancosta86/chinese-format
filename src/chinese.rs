@@ -74,6 +74,6 @@ impl PartialEq<String> for Chinese {
 }
 
 /// Trait expressing support for infallible conversion to [Chinese].
-pub trait ToChinese {
+pub trait ChineseFormat {
     fn to_chinese(&self, variant: Variant) -> Chinese;
 }

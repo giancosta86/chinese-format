@@ -1,4 +1,4 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 
 /// Sign of a number.
 pub struct Sign(pub i128);
@@ -37,7 +37,7 @@ pub struct Sign(pub i128);
 /// });
 /// assert_eq!(Sign(-7).to_chinese(Variant::Traditional), "負");
 /// ```
-impl ToChinese for Sign {
+impl ChineseFormat for Sign {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         if self.0 >= 0 {
             "".to_chinese(variant)

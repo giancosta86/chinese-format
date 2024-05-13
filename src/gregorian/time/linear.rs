@@ -1,5 +1,5 @@
 use super::{DayPart, Hour, Hour12, Hour24, Minute, Second};
-use crate::{chinese_vec, Chinese, EmptyPlaceholder, ToChinese, Variant};
+use crate::{chinese_vec, Chinese, ChineseFormat, EmptyPlaceholder, Variant};
 
 /// Time expression showing time linearly - from day part down to second.
 ///
@@ -82,7 +82,7 @@ pub struct LinearTime {
     pub second: Option<Second>,
 }
 
-impl ToChinese for LinearTime {
+impl ChineseFormat for LinearTime {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         let (day_part, hour): (Option<DayPart>, Box<dyn Hour>) = if self.day_part {
             let day_part: DayPart = self.hour.into();

@@ -10,7 +10,9 @@ pub use self::pattern::*;
 pub use self::week_day::*;
 pub use self::week_format::*;
 use self::{day::Day, month::Month, styled_week_day::StyledWeekDay, year::Year};
-use crate::{chinese_vec, Chinese, CrateError, CrateResult, EmptyPlaceholder, ToChinese, Variant};
+use crate::{
+    chinese_vec, Chinese, ChineseFormat, CrateError, CrateResult, EmptyPlaceholder, Variant,
+};
 
 /// Provides a configurable way to build [Date] instances.
 ///
@@ -356,7 +358,7 @@ pub struct Date {
     week_day: Option<StyledWeekDay>,
 }
 
-impl ToChinese for Date {
+impl ChineseFormat for Date {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         chinese_vec!(
             variant,

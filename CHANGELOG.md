@@ -1,5 +1,7 @@
 # Version 0.5.0
 
+- `ToChinese` trait renamed to the more expressive `ChineseFormat`
+
 - `CrateError` enum extended
 
 # Version 0.4.0

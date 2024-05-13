@@ -1,4 +1,4 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 use chinese_number::{ChineseCase, ChineseCountMethod, ChineseVariant};
 
 macro_rules! impl_number_to_chinese {
@@ -6,7 +6,7 @@ macro_rules! impl_number_to_chinese {
         /// Any integer number can be infallibly converted to Chinese.
         ///
         /// Of the Chinese outcomes, only 零 is [omissible](crate::Chinese::omissible).
-        impl ToChinese for $type {
+        impl ChineseFormat for $type {
             fn to_chinese(&self, variant: Variant) -> Chinese {
                 let logograms: String = chinese_number::NumberToChinese::to_chinese(
                     *self,

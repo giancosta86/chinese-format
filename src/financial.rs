@@ -1,4 +1,4 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 use chinese_number::{ChineseCase, ChineseCountMethod, ChineseVariant};
 
 /// The integer type on which [Financial] is based.
@@ -73,7 +73,7 @@ pub struct Financial(pub FinancialBase);
 ///     omissible: false
 /// });
 /// ```
-impl ToChinese for Financial {
+impl ChineseFormat for Financial {
     fn to_chinese(&self, variant: crate::Variant) -> crate::Chinese {
         let logograms: String = chinese_number::NumberToChinese::to_chinese(
             self.0,

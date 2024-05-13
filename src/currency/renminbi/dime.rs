@@ -1,6 +1,6 @@
 use crate::{
-    currency::CurrencyStyle, define_measure, define_multi_register_measure, Chinese, Count,
-    CrateError, CrateResult, Financial, FinancialBase, ToChinese, Variant,
+    currency::CurrencyStyle, define_measure, define_multi_register_measure, Chinese, ChineseFormat,
+    Count, CrateError, CrateResult, Financial, FinancialBase, Variant,
 };
 
 define_multi_register_measure!(EverydayDime, pub, Count, "角", "毛");
@@ -29,7 +29,7 @@ impl From<Dime> for u8 {
     }
 }
 
-impl ToChinese for Dime {
+impl ChineseFormat for Dime {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         match self.style {
             CurrencyStyle::Everyday { formal } => EverydayDime {

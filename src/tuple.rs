@@ -1,6 +1,6 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 
-/// Any pair of types implementing [ToChinese] can be infallibly converted to Chinese.
+/// Any pair of types implementing [ChineseFormat] can be infallibly converted to Chinese.
 ///
 /// In particular:
 ///
@@ -23,7 +23,7 @@ use crate::{Chinese, ToChinese, Variant};
 ///     omissible: true
 /// });
 /// ```
-impl<T1: ToChinese, T2: ToChinese> ToChinese for (T1, T2) {
+impl<T1: ChineseFormat, T2: ChineseFormat> ChineseFormat for (T1, T2) {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         match variant {
             Variant::Simplified => self.0.to_chinese(variant),

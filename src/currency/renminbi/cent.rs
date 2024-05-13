@@ -1,6 +1,6 @@
 use crate::{
-    currency::CurrencyStyle, define_measure, Chinese, Count, CrateError, CrateResult, Financial,
-    FinancialBase, ToChinese, Variant,
+    currency::CurrencyStyle, define_measure, Chinese, ChineseFormat, Count, CrateError,
+    CrateResult, Financial, FinancialBase, Variant,
 };
 
 define_measure!(EverydayCent, pub, Count, "分");
@@ -29,7 +29,7 @@ impl From<Cent> for u8 {
     }
 }
 
-impl ToChinese for Cent {
+impl ChineseFormat for Cent {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         match self.style {
             CurrencyStyle::Everyday { formal: _ } => {

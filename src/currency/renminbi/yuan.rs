@@ -1,6 +1,6 @@
 use crate::{
-    currency::CurrencyStyle, define_measure, define_multi_register_measure, Chinese, Count,
-    Financial, FinancialBase, ToChinese, Variant,
+    currency::CurrencyStyle, define_measure, define_multi_register_measure, Chinese, ChineseFormat,
+    Count, Financial, FinancialBase, Variant,
 };
 
 define_multi_register_measure!(EverydayYuan, pub, Count, "元", "块");
@@ -19,7 +19,7 @@ impl From<Yuan> for FinancialBase {
     }
 }
 
-impl ToChinese for Yuan {
+impl ChineseFormat for Yuan {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         match self.style {
             CurrencyStyle::Everyday { formal } => EverydayYuan {

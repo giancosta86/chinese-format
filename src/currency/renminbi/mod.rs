@@ -5,8 +5,8 @@ mod yuan;
 use self::{cent::Cent, dime::Dime, yuan::Yuan};
 use super::CurrencyStyle;
 use crate::{
-    chinese_vec, Chinese, CrateResult, EmptyPlaceholder, FinancialBase, LingPlaceholder, ToChinese,
-    Variant,
+    chinese_vec, Chinese, ChineseFormat, CrateResult, EmptyPlaceholder, FinancialBase,
+    LingPlaceholder, Variant,
 };
 
 /// Builds instances of [RenminbiCurrency] in a simple and consistent way.
@@ -334,9 +334,9 @@ impl RenminbiCurrency {
 /// # Ok(())
 /// # }
 /// ```
-impl ToChinese for RenminbiCurrency {
+impl ChineseFormat for RenminbiCurrency {
     fn to_chinese(&self, variant: Variant) -> Chinese {
-        let dimes_box: Box<dyn ToChinese> = match self.style {
+        let dimes_box: Box<dyn ChineseFormat> = match self.style {
             CurrencyStyle::Everyday { formal: false } => {
                 Box::new(LingPlaceholder::new(&self.dimes))
             }

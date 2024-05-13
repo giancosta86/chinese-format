@@ -1,15 +1,15 @@
 /// Defines a new **placeholder** type.
 ///
-/// Every *placeholder* wraps a [ToChinese](crate::ToChinese) instance and implements [ToChinese](crate::ToChinese) as follows:
+/// Every *placeholder* wraps a [ChineseFormat](crate::ChineseFormat) instance and implements [ChineseFormat](crate::ChineseFormat) as follows:
 ///
-///   * first, convert the wrapped [ToChinese](crate::ToChinese) instance to [Chinese](crate::Chinese)
+///   * first, convert the wrapped [ChineseFormat](crate::ChineseFormat) instance to [Chinese](crate::Chinese)
 ///
 ///   * if the result is not [omissible](crate::Chinese::omissible), return it unchanged
 ///
 ///     * otherwise, return a [Chinese](crate::Chinese) that is still [omissible](crate::Chinese::omissible),
 ///       but whose [logograms](crate::Chinese::logograms) are the obtained by calling `$replacement_logograms.to_string()`.
 ///
-/// Anyway, the `omissible` property of any placeholder always reflects the [Chinese](crate::Chinese) produced by the wrapped [ToChinese](crate::ToChinese) instance.
+/// Anyway, the `omissible` property of any placeholder always reflects the [Chinese](crate::Chinese) produced by the wrapped [ChineseFormat](crate::ChineseFormat) instance.
 ///
 /// Last but not least, every placeholder can be built via its `new()` constructor.
 ///
@@ -84,15 +84,15 @@ macro_rules! define_string_placeholder {
         $doc_string: literal
     ) => {
         #[doc = $doc_string]
-        $type_visibility struct $type<'a>(&'a dyn $crate::ToChinese);
+        $type_visibility struct $type<'a>(&'a dyn $crate::ChineseFormat);
 
         impl <'a> $type<'a> {
-            pub fn new<T: $crate::ToChinese>(value: &'a T) -> Self {
+            pub fn new<T: $crate::ChineseFormat>(value: &'a T) -> Self {
                 Self(value)
             }
         }
 
-        impl <'a> $crate::ToChinese for $type<'a>{
+        impl <'a> $crate::ChineseFormat for $type<'a>{
             fn to_chinese(&self, variant: $crate::Variant) -> $crate::Chinese {
                 let wrapped_chinese = self.0.to_chinese(variant);
 

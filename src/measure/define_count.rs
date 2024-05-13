@@ -22,7 +22,7 @@ macro_rules! define_count_measure {
         //The name of the PRIVATE type to create.
         $type: ident,
 
-        //The unit - implementing ToChinese.
+        //The unit - implementing ChineseFormat.
         $unit: expr
     ) => {
         $crate::define_count_measure!(
@@ -39,7 +39,7 @@ macro_rules! define_count_measure {
         //The name of the type to create.
         $type: ident,
 
-        //The unit - implementing ToChinese.
+        //The unit - implementing ChineseFormat.
         $unit: expr
     ) => {
         $crate::define_measure!($type_visibility, $type, pub(self), $crate::Count, $unit);

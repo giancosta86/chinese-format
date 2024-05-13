@@ -1,5 +1,5 @@
 use super::{Hour, Hour24};
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 use lazy_static::lazy_static;
 use std::collections::HashMap;
 
@@ -124,7 +124,7 @@ impl From<Hour24> for DayPart {
 ///     "深夜"
 /// );
 /// ```
-impl ToChinese for DayPart {
+impl ChineseFormat for DayPart {
     fn to_chinese(&self, _variant: Variant) -> Chinese {
         Chinese {
             logograms: match self {

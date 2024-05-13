@@ -77,7 +77,7 @@ macro_rules! define_no_copy_measure {
         //The field type - implementing the required traits.
         $field_type: ty,
 
-        //The unit - implementing ToChinese.
+        //The unit - implementing ChineseFormat.
         $unit: expr
     ) => {
         $crate::define_no_copy_measure(
@@ -102,18 +102,18 @@ macro_rules! define_no_copy_measure {
         //The field type - implementing the required traits.
         $field_type: ty,
 
-        //The unit - implementing ToChinese.
+        //The unit - implementing ChineseFormat.
         $unit: expr
     ) => {
         #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
         $type_visibility struct $type($field_visibility $field_type);
 
         impl $crate::Measure for $type {
-            fn value(&self) -> &dyn $crate::ToChinese {
+            fn value(&self) -> &dyn $crate::ChineseFormat {
                 &self.0
             }
 
-            fn unit(&self) -> &dyn $crate::ToChinese {
+            fn unit(&self) -> &dyn $crate::ChineseFormat {
                 &$unit
             }
         }

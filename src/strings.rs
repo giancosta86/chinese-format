@@ -1,4 +1,4 @@
-use crate::{Chinese, ToChinese, Variant};
+use crate::{Chinese, ChineseFormat, Variant};
 
 /// Any &[str] can be infallibly converted to Chinese.
 ///
@@ -32,7 +32,7 @@ use crate::{Chinese, ToChinese, Variant};
 ///
 /// assert!("".to_chinese(Variant::Simplified).omissible);
 /// ```
-impl ToChinese for &str {
+impl ChineseFormat for &str {
     fn to_chinese(&self, _variant: Variant) -> Chinese {
         Chinese {
             logograms: (*self).into(),
@@ -69,7 +69,7 @@ impl ToChinese for &str {
 ///
 /// assert!("".to_string().to_chinese(Variant::Simplified).omissible);
 /// ```
-impl ToChinese for String {
+impl ChineseFormat for String {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         self.as_str().to_chinese(variant)
     }

@@ -1,4 +1,4 @@
-use crate::{chinese_vec, Chinese, ToChinese, Variant};
+use crate::{chinese_vec, Chinese, ChineseFormat, Variant};
 use digit_sequence::DigitSequence;
 
 /// The integer part of a [Decimal].
@@ -108,7 +108,7 @@ const COMMA: (&str, &str) = ("点", "點");
 ///     omissible: false
 /// });
 /// ```
-impl ToChinese for Decimal {
+impl ChineseFormat for Decimal {
     fn to_chinese(&self, variant: Variant) -> Chinese {
         if self.fractional.is_empty() {
             self.integer.to_chinese(variant)

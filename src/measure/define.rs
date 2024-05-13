@@ -1,7 +1,7 @@
 /// Defines a `struct` implementing [Measure](crate::Measure).
 ///
 /// The `struct` uses the provided name, visibility and underlying type -
-/// which, in turn, must implement both [Copy] and [ToChinese](crate::ToChinese), as well as [Debug], [Clone], [PartialEq], [Eq], [PartialOrd], [Ord] and [Hash].
+/// which, in turn, must implement both [Copy] and [ChineseFormat](crate::ChineseFormat), as well as [Debug], [Clone], [PartialEq], [Eq], [PartialOrd], [Ord] and [Hash].
 ///
 /// The generated data type automatically comes with:
 ///
@@ -70,7 +70,7 @@ macro_rules! define_measure {
         //The field type - implementing the required traits.
         $field_type: ty,
 
-        //The unit - implementing ToChinese.
+        //The unit - implementing ChineseFormat.
         $unit: expr
     ) => {
         $crate::define_measure!(
@@ -95,18 +95,18 @@ macro_rules! define_measure {
         //The field type - implementing the required traits.
         $field_type: ty,
 
-        //The unit - implementing ToChinese.
+        //The unit - implementing ChineseFormat.
         $unit: expr
     ) => {
         #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
         $type_visibility struct $type($field_visibility $field_type);
 
         impl $crate::Measure for $type {
-            fn value(&self) -> &dyn $crate::ToChinese {
+            fn value(&self) -> &dyn $crate::ChineseFormat {
                 &self.0
             }
 
-            fn unit(&self) -> &dyn $crate::ToChinese {
+            fn unit(&self) -> &dyn $crate::ChineseFormat {
                 &$unit
             }
         }
