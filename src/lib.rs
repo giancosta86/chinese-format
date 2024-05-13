@@ -1,17 +1,21 @@
 //! This crate focuses on converting data types to [Chinese],
 //! which can be achieved by implementing the [ChineseFormat] trait.
 //!
-//! As a consequence, it provides:
+//! As a consequence, the library provides:
 //!
-//! * **ready-made conversions** for standard data types such as integers,
-//!   strings, ... - but also for fairly specific types like `DigitSequence`.
+//! - **ready-made conversions** for standard data types (integers,
+//!   strings, [Option], pairs, ...) - but also for fairly specific types like [DigitSequence](digit_sequence::DigitSequence).
 //!
-//! * **custom data types** - such as [Sign] and [Fraction].
+//! - **Gregorian date/time**, in the [gregorian] module, in different formats via [DateBuilder](gregorian::DateBuilder), [LinearTime](gregorian::LinearTime) and [DeltaTime](gregorian::DeltaTime).
 //!
-//! * the [Measure] trait and its related macros - especially [define_measure].
+//! - **Monetary units**, in the [currency] module - at present, [RenminbiCurrency](currency::RenminbiCurrency) (人民币).
 //!
-//! * the [ChineseVec] sequence, to simplify the manipulation of *complex
-//!   chains of logograms*.
+//! - **Dedicated numeric types** - such as [Decimal], [Fraction] and [Sign].
+//!
+//! - the [ChineseVec] sequence, to simplify the manipulation of _arbitrary
+//!   chains of logograms_, as well as **placeholders**.
+//!
+//! - the [Measure] trait and its related macros - especially [define_measure].
 mod chinese;
 mod count;
 #[cfg(feature = "digit-sequence")]
