@@ -1,3 +1,7 @@
+# Version 0.5.0
+
+- `CrateError` enum extended
+
 # Version 0.4.0
 
 - `date` module renamed to `gregorian` - as well as the related feature

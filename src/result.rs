@@ -19,7 +19,9 @@ pub type CrateResult<T> = Result<T, CrateError>;
 ///
 /// assert_eq!(CrateError::MonthOutOfRange(90).to_string(), "Month out of range: 90");
 ///
-/// assert_eq!(CrateError::DayOutOfRange(90).to_string(), "Day out of range: 90");
+/// assert_eq!(CrateError::DayOutOfRange(91).to_string(), "Day out of range: 91");
+///
+/// assert_eq!(CrateError::WeekDayOutOfRange(92).to_string(), "Week day out of range: 92");
 ///
 /// assert_eq!(CrateError::InvalidDatePattern("dw".to_string()).to_string(), "Invalid date pattern: dw");
 ///
@@ -63,6 +65,7 @@ pub enum CrateError {
     CentsOutOfRange(u8),
     MonthOutOfRange(u8),
     DayOutOfRange(u8),
+    WeekDayOutOfRange(u8),
     InvalidDatePattern(String),
     InvalidDate {
         year: Option<u16>,
@@ -88,6 +91,8 @@ impl Display for CrateError {
             Self::MonthOutOfRange(month) => write!(f, "Month out of range: {}", month),
 
             Self::DayOutOfRange(day) => write!(f, "Day out of range: {}", day),
+
+            Self::WeekDayOutOfRange(week_day) => write!(f, "Week day out of range: {}", week_day),
 
             Self::InvalidDatePattern(pattern) => {
                 write!(f, "Invalid date pattern: {}", pattern)

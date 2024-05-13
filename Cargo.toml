@@ -1,13 +1,18 @@
 [package]
 name = "chinese-format"
-version = "0.4.1"
+version = "0.5.0"
 authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
 edition = "2021"
 description = "Convert data types to Chinese, with Rust"
 repository = "https://github.com/giancosta86/chinese-format"
 license = "MIT"
 keywords = ["convert", "Chinese", "logograms", "format", "measure"]
-categories = ["localization", "data-structures", "text-processing"]
+categories = [
+    "localization",
+    "date-and-time",
+    "data-structures",
+    "text-processing",
+]
 include = [
     "LICENSE",
     "README.md",
