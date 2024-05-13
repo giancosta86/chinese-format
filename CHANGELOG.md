@@ -2,6 +2,8 @@
 
 - `ToChinese` trait renamed to the more expressive `ChineseFormat`
 
+- all features **enabled** by default
+
 - `CrateError` enum extended
 
 # Version 0.4.0

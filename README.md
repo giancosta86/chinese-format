@@ -19,22 +19,21 @@ As a consequence, it provides:
 
 - the `Measure` trait and its related macros - especially `define_measure`.
 
-- the `ChineseVec` sequence, to simplify the manipulation of _complex
-  chains of logograms_.
+## Features
 
-## Optional features
+By default, _all the features in this crate are enabled_:
 
 - **digit-sequence**:
 
-  - enables conversions to Chinese for [DigitSequence](https://crates.io/crates/digit-sequence)
+  - enables conversions to Chinese for [DigitSequence](https://crates.io/crates/digit-sequence).
 
-  - enables the `Decimal` and `IntegerPart` types
+  - enables the `Decimal` and `IntegerPart` types.
 
 - **currency**: enables the whole `currency` module for monetary conversions.
 
 - **gregorian**: enables the `gregorian` module for date/time conversions.
 
-  _Also enables_: **digit-sequence**
+  _Also enables_: **digit-sequence**.
 
 ## Crates.io
 

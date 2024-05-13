@@ -33,6 +33,6 @@ pretty_assertions = "1.4.0"
 speculate2 = "0.2"
 
 [features]
-default = []
+default = ["digit-sequence", "currency", "gregorian"]
 currency = []
 gregorian = ["digit-sequence"]
