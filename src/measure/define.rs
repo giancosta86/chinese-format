@@ -1,6 +1,6 @@
-/// Defines a `struct` implementing [Measure](crate::Measure).
+/// Defines a struct implementing [Measure](crate::Measure).
 ///
-/// The `struct` uses the provided name, visibility and underlying type -
+/// The struct uses the provided name, visibility and underlying type -
 /// which, in turn, must implement both [Copy] and [ChineseFormat](crate::ChineseFormat), as well as [Debug], [Clone], [PartialEq], [Eq], [PartialOrd], [Ord] and [Hash].
 ///
 /// The generated data type automatically comes with:

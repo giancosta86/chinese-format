@@ -1,6 +1,6 @@
 /// Defines a [Measure](crate::Measure) having both a formal and an informal unit.
 ///
-/// The resulting `struct` is like the one described in [define_measure](crate::define_measure),
+/// The resulting struct is like the one described in [define_measure](crate::define_measure),
 /// but with the following differences:
 ///
 /// * it contains 2 fields:

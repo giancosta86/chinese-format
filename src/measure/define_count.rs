@@ -1,4 +1,4 @@
-/// Defines a `struct` implementing [Measure](crate::Measure) having a [Count](crate::Count) value.
+/// Defines a struct implementing [Measure](crate::Measure) having a [Count](crate::Count) value.
 ///
 /// Also includes a `new` constructor:
 ///

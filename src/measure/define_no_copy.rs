@@ -1,4 +1,4 @@
-/// Like [define_measure](crate::define_measure), but the generated `struct` is not [Copy].
+/// Like [define_measure](crate::define_measure), but the generated struct is not [Copy].
 ///
 /// As a consequence, the underlying type does not need to implement [Copy],
 /// and the `value()` method returns a *clone*.
@@ -51,7 +51,7 @@
 /// });
 /// ```
 ///
-/// It is worth remembering that the generated `struct` will not support
+/// It is worth remembering that the generated struct will not support
 /// copy on assignment, just as expected:
 ///
 /// ```compile_fail

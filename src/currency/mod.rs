@@ -1,6 +1,6 @@
 //! Currencies from all over the world.
 //!
-//! Each currency is defined by a `struct` named `{CurrencyName}Currency` - and may be built via a dedicated `{CurrencyName}CurrencyBuilder`.
+//! Each currency is defined by a struct named `{CurrencyName}Currency` - and may be built via a dedicated `{CurrencyName}CurrencyBuilder`.
 //!
 //! **REQUIRED FEATURE**: `currency`.
 mod renminbi;
