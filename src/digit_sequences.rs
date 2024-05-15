@@ -58,6 +58,8 @@ lazy_static! {
 /// # Ok(())
 /// # }
 /// ```
+///
+/// **REQUIRED FEATURE**: `digit-sequence`.
 impl ChineseFormat for DigitSequence {
     fn to_chinese(&self, _variant: Variant) -> Chinese {
         let logograms: String = self

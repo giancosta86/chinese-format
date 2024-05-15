@@ -30,17 +30,17 @@ As a consequence, the library provides:
 
 The crate supports the following _optional_ dependencies:
 
-- **digit-sequence**:
+- `digit-sequence`:
 
   - enables conversions to Chinese for [DigitSequence](https://crates.io/crates/digit-sequence).
 
   - enables the `Decimal` and `IntegerPart` types.
 
-- **currency**: enables the whole `currency` module for monetary conversions.
+- `currency`: enables the whole `currency` module for monetary conversions.
 
-- **gregorian**: enables the `gregorian` module for date/time conversions.
+- `gregorian`: enables the `gregorian` module for date/time conversions.
 
-  _Also enables_: **digit-sequence**.
+  _Also enables_: `digit-sequence`.
 
 ## Crates.io
 

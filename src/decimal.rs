@@ -2,6 +2,8 @@ use crate::{chinese_vec, Chinese, ChineseFormat, Variant};
 use digit_sequence::DigitSequence;
 
 /// The integer part of a [Decimal].
+///
+/// **REQUIRED FEATURE**: `digit-sequence`.
 pub type IntegerPart = i128;
 
 /// Accurate real number.
@@ -27,6 +29,8 @@ pub type IntegerPart = i128;
 ///     omissible: false
 /// });
 /// ```
+///
+/// **REQUIRED FEATURE**: `digit-sequence`.
 pub struct Decimal {
     /// The digits *before* the decimal separator.
     pub integer: IntegerPart,
