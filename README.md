@@ -28,7 +28,7 @@ As a consequence, the library provides:
 
 ## Features
 
-By default, _all the features in this crate are enabled_:
+The crate supports the following _optional_ dependencies:
 
 - **digit-sequence**:
 
