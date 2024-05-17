@@ -19,7 +19,7 @@
 //!
 //! # Features
 //!
-//! The crate supports the following _optional_ dependencies:
+//! The crate supports the following _optional_ features:
 //!
 //! - `digit-sequence`:
 //!
