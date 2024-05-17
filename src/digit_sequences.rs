@@ -24,7 +24,7 @@ lazy_static! {
 ///
 /// ```
 /// use chinese_format::*;
-/// use digit_sequence::*;
+/// use digit_sequence::DigitSequence;
 ///
 /// # fn main() -> GenericResult<()> {
 ///
