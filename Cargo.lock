@@ -46,15 +46,15 @@ checksum = "56254986775e3233ffa9c4d7d3faaf6d36a2c09d30b20687e9f88bc8bafc16c8"
 
 [[package]]
 name = "digit-sequence"
-version = "0.3.3"
+version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88e8757ce311843a028783422f4a1d4f9dd7b3fa84c235459852f7937b3a36bc"
+checksum = "d2f5cd9328beeb332fb32eeaf12d187191c87450c7951cca24da64492c39fb3f"
 
 [[package]]
 name = "dyn-error"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4c4bf254ce96253dc93e22ca40dc153c655273a66defd58779fc72dce864a4c"
+checksum = "2213bd836e400d8d68928394363b90e2f88c2ae9d9b15be2cd5100c4de60efff"
 
 [[package]]
 name = "enum-ordinalize"
