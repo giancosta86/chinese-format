@@ -25,6 +25,7 @@ lazy_static! {
 }
 
 /// Any of the acceptable [Date](super::Date) patterns.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum DatePattern {
     Year,
     Month,
