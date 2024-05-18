@@ -30,7 +30,7 @@ use crate::{Count, CountBase, CrateError, CrateResult};
 ///
 /// let invalid_result: CrateResult<Hour24> = 24.try_into();
 ///
-/// assert_eq!(invalid_result, CrateError::HourOutOfRange(24));
+/// assert_eq!(invalid_result, Err(CrateError::HourOutOfRange(24)));
 ///
 /// # Ok(())
 /// # }

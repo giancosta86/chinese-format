@@ -132,7 +132,7 @@ impl RenminbiCurrencyBuilder {
     ///     RenminbiCurrencyBuilder::new()
     ///         .with_dimes(230);
     ///
-    /// assert_eq!(builder.build(), CrateError::DimesOutOfRange(230));
+    /// assert_eq!(builder.build(), Err(CrateError::DimesOutOfRange(230)));
     /// ```
     pub fn build(&self) -> CrateResult<RenminbiCurrency> {
         Ok(RenminbiCurrency {

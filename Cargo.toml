@@ -1,6 +1,6 @@
 [package]
 name = "chinese-format"
-version = "0.6.2"
+version = "0.7.0"
 authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
 edition = "2021"
 description = "Convert data types to Chinese, with Rust"
@@ -26,7 +26,6 @@ include = [
 chinese-number = "0.7.7"
 lazy_static = "1.4.0"
 digit-sequence = { version = "0.3.4", optional = true }
-dyn-error = "0.1.1"
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"

@@ -60,9 +60,9 @@ mod tests {
 
                 describe "when converting from invalid values" {
                     it "should fail" {
-                        eq!(Day::try_new_formal(0), CrateError::DayOutOfRange(0));
+                        eq!(Day::try_new_formal(0), Err(CrateError::DayOutOfRange(0)));
 
-                        eq!(Day::try_new_formal(32), CrateError::DayOutOfRange(32));
+                        eq!(Day::try_new_formal(32), Err(CrateError::DayOutOfRange(32)));
                     }
                 }
             }
@@ -82,9 +82,9 @@ mod tests {
 
                 describe "when converting from invalid values" {
                     it "should fail" {
-                        eq!(Day::try_new_informal(0), CrateError::DayOutOfRange(0));
+                        eq!(Day::try_new_informal(0), Err(CrateError::DayOutOfRange(0)));
 
-                        eq!(Day::try_new_informal(32), CrateError::DayOutOfRange(32));
+                        eq!(Day::try_new_informal(32), Err(CrateError::DayOutOfRange(32)));
                     }
                 }
             }

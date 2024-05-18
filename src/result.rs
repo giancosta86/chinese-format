@@ -1,7 +1,7 @@
-use dyn_error::{declare_dyn_result, impl_err_equality};
 use std::{error::Error, fmt::Display};
 
-declare_dyn_result!(pub, GenericResult);
+/// The most generic [Error]-based [Result].
+pub type GenericResult<T> = Result<T, Box<dyn Error>>;
 
 /// Custom version of [Result], based on [CrateError].
 pub type CrateResult<T> = Result<T, CrateError>;
@@ -76,8 +76,6 @@ pub enum CrateError {
     MinuteOutOfRange(u8),
     SecondOutOfRange(u8),
 }
-
-impl_err_equality!(CrateError);
 
 impl Display for CrateError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

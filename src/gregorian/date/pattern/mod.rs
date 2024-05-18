@@ -55,7 +55,7 @@ impl DatePattern {
     ///             week_day: false
     ///         }
     ///     ),
-    ///     CrateError::InvalidDatePattern("".to_string())
+    ///     Err(CrateError::InvalidDatePattern("".to_string()))
     /// );
     ///
     /// assert_eq!(
@@ -67,7 +67,7 @@ impl DatePattern {
     ///             week_day: true
     ///         }
     ///     ),
-    ///     CrateError::InvalidDatePattern("mw".to_string())
+    ///     Err(CrateError::InvalidDatePattern("mw".to_string()))
     /// );
     ///
     /// assert_eq!(

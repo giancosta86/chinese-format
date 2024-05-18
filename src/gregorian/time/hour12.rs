@@ -36,10 +36,10 @@ use crate::{Count, CountBase, CrateError, CrateResult};
 ///   assert_eq!(two.to_chinese(Variant::Traditional), "兩點");
 ///
 ///   let too_low_result: CrateResult<Hour12> = 0.try_into();
-///   assert_eq!(too_low_result, CrateError::HourOutOfRange(0));
+///   assert_eq!(too_low_result, Err(CrateError::HourOutOfRange(0)));
 ///
 ///   let too_high_result: CrateResult<Hour12> = 13.try_into();
-///   assert_eq!(too_high_result, CrateError::HourOutOfRange(13));
+///   assert_eq!(too_high_result, Err(CrateError::HourOutOfRange(13)));
 ///
 ///   # Ok(())
 ///   # }

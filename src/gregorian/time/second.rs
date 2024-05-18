@@ -19,7 +19,7 @@ define_measure!(pub, Second, pub(self), u8, "秒");
 /// assert_eq!(highest.to_chinese(Variant::Simplified), "五十九秒");
 ///
 /// let second_result: CrateResult<Second> = 60.try_into();
-/// assert_eq!(second_result, CrateError::SecondOutOfRange(60));
+/// assert_eq!(second_result, Err(CrateError::SecondOutOfRange(60)));
 ///
 /// # Ok(())
 /// # }

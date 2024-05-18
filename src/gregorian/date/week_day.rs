@@ -51,7 +51,7 @@ pub enum WeekDay {
 /// assert_eq!(day, WeekDay::Saturday);
 ///
 /// let result: CrateResult<WeekDay> = 7.try_into();
-/// assert_eq!(result, CrateError::WeekDayOutOfRange(7));
+/// assert_eq!(result, Err(CrateError::WeekDayOutOfRange(7)));
 ///
 /// # Ok(())
 /// # }

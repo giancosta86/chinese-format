@@ -10,11 +10,10 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
 name = "chinese-format"
-version = "0.6.2"
+version = "0.7.0"
 dependencies = [
  "chinese-number",
  "digit-sequence",
- "dyn-error",
  "lazy_static",
  "pretty_assertions",
  "speculate2",
@@ -49,12 +48,6 @@ name = "digit-sequence"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d2f5cd9328beeb332fb32eeaf12d187191c87450c7951cca24da64492c39fb3f"
-
-[[package]]
-name = "dyn-error"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2213bd836e400d8d68928394363b90e2f88c2ae9d9b15be2cd5100c4de60efff"
 
 [[package]]
 name = "enum-ordinalize"

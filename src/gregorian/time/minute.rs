@@ -31,7 +31,7 @@ impl Minute {
     /// assert_eq!(thirty.complement()?, thirty);
     ///
     /// let zero: Minute = 0.try_into()?;
-    /// assert_eq!(zero.complement(), CrateError::MinuteOutOfRange(60));
+    /// assert_eq!(zero.complement(), Err(CrateError::MinuteOutOfRange(60)));
     ///
     /// # Ok(())
     /// # }
@@ -58,7 +58,7 @@ impl Minute {
 /// assert_eq!(highest.to_chinese(Variant::Simplified), "五十九分");
 ///
 /// let minute_result: CrateResult<Minute> = 60.try_into();
-/// assert_eq!(minute_result, CrateError::MinuteOutOfRange(60));
+/// assert_eq!(minute_result, Err(CrateError::MinuteOutOfRange(60)));
 ///
 /// # Ok(())
 /// # }
