@@ -30,7 +30,44 @@ pub type IntegerPart = i128;
 /// });
 /// ```
 ///
+/// It is worth noting that [Decimal] supports both equality and ordering:
+///
+/// ```
+/// use chinese_format::*;
+/// use digit_sequence::DigitSequence;
+///
+/// let ninety = Decimal {
+///     integer: 90,
+///     fractional: DigitSequence::new()
+/// };
+///
+///
+/// let ninety_dot_five = Decimal {
+///     integer: 90,
+///     fractional: 5u8.into()
+/// };
+///
+///
+/// let ninety_dot_five_seven = Decimal {
+///     integer: 90,
+///     fractional: 57u8.into()
+/// };
+///
+/// let ninety_two = Decimal {
+///     integer: 92,
+///     fractional: DigitSequence::new()
+/// };
+///
+/// assert_eq!(ninety, ninety);
+/// assert_ne!(ninety, ninety_dot_five);
+///
+/// assert!(ninety < ninety_dot_five);
+/// assert!(ninety_dot_five < ninety_dot_five_seven);
+/// assert!(ninety_dot_five_seven < ninety_two);
+/// ```
+///
 /// **REQUIRED FEATURE**: `digit-sequence`.
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Decimal {
     /// The digits *before* the decimal separator.
     pub integer: IntegerPart,
