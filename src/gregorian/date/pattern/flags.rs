@@ -3,6 +3,7 @@ use std::fmt::Display;
 /// Flags describing the components in a [DatePattern](super::DatePattern).
 ///
 /// This data structure is used, for example, by [DatePattern::validate](super::DatePattern::validate).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DatePatternFlags {
     pub year: bool,
 
