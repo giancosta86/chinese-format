@@ -99,6 +99,7 @@ macro_rules! chinese_vec {
 ///     omissible: false
 /// });
 /// ```
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ChineseVec(Vec<Chinese>);
 
 impl ChineseVec {
