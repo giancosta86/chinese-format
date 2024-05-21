@@ -44,7 +44,6 @@ mod integers;
 mod measure;
 mod option;
 mod placeholders;
-mod result;
 mod sign;
 mod strings;
 mod tuple;
@@ -65,6 +64,10 @@ pub use financial::*;
 pub use fraction::*;
 pub use measure::*;
 pub use placeholders::*;
-pub use result::*;
 pub use sign::*;
 pub use vector::*;
+
+use std::error::Error;
+
+/// The most generic [Error]-based [Result].
+pub type GenericResult<T> = Result<T, Box<dyn Error>>;

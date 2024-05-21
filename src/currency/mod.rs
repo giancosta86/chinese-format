@@ -3,6 +3,7 @@
 //! Each currency is defined by a struct named `{CurrencyName}Currency` - and may be built via a dedicated `{CurrencyName}CurrencyBuilder`.
 //!
 //! **REQUIRED FEATURE**: `currency`.
+mod errors;
 mod renminbi;
 
 /// Styles adopted when converting currencies to [Chinese](crate::Chinese).
@@ -23,4 +24,5 @@ pub enum CurrencyStyle {
     Financial,
 }
 
+pub use errors::*;
 pub use renminbi::*;

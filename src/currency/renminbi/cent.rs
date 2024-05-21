@@ -1,6 +1,6 @@
 use crate::{
-    currency::CurrencyStyle, define_measure, Chinese, ChineseFormat, Count, CrateError,
-    CrateResult, Financial, FinancialBase, Variant,
+    currency::{CentsOutOfRange, CurrencyStyle},
+    define_measure, Chinese, ChineseFormat, Count, Financial, FinancialBase, Variant,
 };
 
 define_measure!(EverydayCent, pub, Count, "分");
@@ -14,9 +14,9 @@ pub struct Cent {
 }
 
 impl Cent {
-    pub fn try_new(value: u8, style: CurrencyStyle) -> CrateResult<Cent> {
+    pub fn try_new(value: u8, style: CurrencyStyle) -> Result<Cent, CentsOutOfRange> {
         if value >= 10 {
-            return Err(CrateError::CentsOutOfRange(value));
+            return Err(CentsOutOfRange(value));
         }
 
         Ok(Self { value, style })
@@ -66,7 +66,7 @@ mod tests {
 
                 describe "with a value greater than 9" {
                     it "should fail" {
-                        eq!(Cent::try_new(10, CurrencyStyle::Financial), Err(CrateError::CentsOutOfRange(10)))
+                        eq!(Cent::try_new(10, CurrencyStyle::Financial), Err(CentsOutOfRange(10)))
                     }
                 }
             }

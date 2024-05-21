@@ -1,4 +1,4 @@
-use crate::{CrateError, CrateResult};
+use super::WeekDayOutOfRange;
 
 /// The day of the week.
 ///
@@ -50,16 +50,16 @@ pub enum WeekDay {
 /// day = 6.try_into()?;
 /// assert_eq!(day, WeekDay::Saturday);
 ///
-/// let result: CrateResult<WeekDay> = 7.try_into();
-/// assert_eq!(result, Err(CrateError::WeekDayOutOfRange(7)));
+/// let result: Result<WeekDay, WeekDayOutOfRange> = 7.try_into();
+/// assert_eq!(result, Err(WeekDayOutOfRange(7)));
 ///
 /// # Ok(())
 /// # }
 /// ```
 impl TryFrom<u8> for WeekDay {
-    type Error = CrateError;
+    type Error = WeekDayOutOfRange;
 
-    fn try_from(value: u8) -> CrateResult<Self> {
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
         match value {
             0 => Ok(Self::Sunday),
             1 => Ok(Self::Monday),
@@ -68,7 +68,7 @@ impl TryFrom<u8> for WeekDay {
             4 => Ok(Self::Thursday),
             5 => Ok(Self::Friday),
             6 => Ok(Self::Saturday),
-            _ => Err(CrateError::WeekDayOutOfRange(value)),
+            _ => Err(WeekDayOutOfRange(value)),
         }
     }
 }

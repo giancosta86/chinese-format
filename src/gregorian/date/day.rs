@@ -1,11 +1,12 @@
-use crate::{define_multi_register_measure, CrateError, CrateResult};
+use super::DayOutOfRange;
+use crate::define_multi_register_measure;
 
 define_multi_register_measure!(pub, Day, pub(self), u8, ("号", "號"), "日");
 
 impl Day {
-    fn validate(ordinal: u8) -> CrateResult<()> {
+    fn validate(ordinal: u8) -> Result<(), DayOutOfRange> {
         if !(1..=31).contains(&ordinal) {
-            return Err(CrateError::DayOutOfRange(ordinal));
+            return Err(DayOutOfRange(ordinal));
         }
 
         Ok(())
@@ -14,7 +15,7 @@ impl Day {
     /// Creates a day having *formal* (`号`/`號`) unit.
     ///
     /// The *value* must belong to the 1..=31 range.
-    pub fn try_new_formal(ordinal: u8) -> CrateResult<Self> {
+    pub fn try_new_formal(ordinal: u8) -> Result<Self, DayOutOfRange> {
         Self::validate(ordinal)?;
 
         Ok(Self {
@@ -26,7 +27,7 @@ impl Day {
     /// Creates a day having *informal* (`日`) unit.
     ///
     /// The *value* must belong to the 1..=31 range.
-    pub fn try_new_informal(ordinal: u8) -> CrateResult<Self> {
+    pub fn try_new_informal(ordinal: u8) -> Result<Self, DayOutOfRange> {
         Self::validate(ordinal)?;
 
         Ok(Self {
@@ -60,9 +61,9 @@ mod tests {
 
                 describe "when converting from invalid values" {
                     it "should fail" {
-                        eq!(Day::try_new_formal(0), Err(CrateError::DayOutOfRange(0)));
+                        eq!(Day::try_new_formal(0), Err(DayOutOfRange(0)));
 
-                        eq!(Day::try_new_formal(32), Err(CrateError::DayOutOfRange(32)));
+                        eq!(Day::try_new_formal(32), Err(DayOutOfRange(32)));
                     }
                 }
             }
@@ -82,9 +83,9 @@ mod tests {
 
                 describe "when converting from invalid values" {
                     it "should fail" {
-                        eq!(Day::try_new_informal(0), Err(CrateError::DayOutOfRange(0)));
+                        eq!(Day::try_new_informal(0), Err(DayOutOfRange(0)));
 
-                        eq!(Day::try_new_informal(32), Err(CrateError::DayOutOfRange(32)));
+                        eq!(Day::try_new_informal(32), Err(DayOutOfRange(32)));
                     }
                 }
             }

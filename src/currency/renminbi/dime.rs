@@ -1,6 +1,7 @@
 use crate::{
-    currency::CurrencyStyle, define_measure, define_multi_register_measure, Chinese, ChineseFormat,
-    Count, CrateError, CrateResult, Financial, FinancialBase, Variant,
+    currency::{CurrencyStyle, DimesOutOfRange},
+    define_measure, define_multi_register_measure, Chinese, ChineseFormat, Count, Financial,
+    FinancialBase, Variant,
 };
 
 define_multi_register_measure!(EverydayDime, pub, Count, "角", "毛");
@@ -14,9 +15,9 @@ pub struct Dime {
 }
 
 impl Dime {
-    pub fn try_new(value: u8, style: CurrencyStyle) -> CrateResult<Dime> {
+    pub fn try_new(value: u8, style: CurrencyStyle) -> Result<Dime, DimesOutOfRange> {
         if value >= 10 {
-            return Err(CrateError::DimesOutOfRange(value));
+            return Err(DimesOutOfRange(value));
         }
 
         Ok(Self { value, style })
@@ -68,7 +69,7 @@ mod tests {
 
                 describe "with a value greater than 9" {
                     it "should fail" {
-                        eq!(Dime::try_new(10, CurrencyStyle::Financial), Err(CrateError::DimesOutOfRange(10)))
+                        eq!(Dime::try_new(10, CurrencyStyle::Financial), Err(DimesOutOfRange(10)))
                     }
                 }
             }

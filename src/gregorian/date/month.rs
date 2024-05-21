@@ -1,14 +1,15 @@
-use crate::{define_measure, CrateError, CrateResult};
+use super::MonthOutOfRange;
+use crate::define_measure;
 
 define_measure!(pub, Month, pub(self), u8, "月");
 
 /// [Month] can be obtained from [u8], for values in the 1..=12 range.
 impl TryFrom<u8> for Month {
-    type Error = CrateError;
+    type Error = MonthOutOfRange;
 
-    fn try_from(value: u8) -> CrateResult<Self> {
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
         if !(1..=12).contains(&value) {
-            return Err(CrateError::MonthOutOfRange(value));
+            return Err(MonthOutOfRange(value));
         }
 
         Ok(Self(value))
@@ -38,17 +39,17 @@ mod tests {
 
                 describe "when the value is too low" {
                     it "should fail" {
-                        let too_small_result: CrateResult<Month> = 0.try_into();
+                        let too_small_result: Result<Month, MonthOutOfRange> = 0.try_into();
 
-                        eq!(too_small_result, Err(CrateError::MonthOutOfRange(0)));
+                        eq!(too_small_result, Err(MonthOutOfRange(0)));
                     }
                 }
 
                 describe "when the value is too high" {
                     it "should fail" {
-                        let too_high_result: CrateResult<Month> = 13.try_into();
+                        let too_high_result: Result<Month, MonthOutOfRange> = 13.try_into();
 
-                        eq!(too_high_result, Err(CrateError::MonthOutOfRange(13)));
+                        eq!(too_high_result, Err(MonthOutOfRange(13)));
                     }
                 }
             }

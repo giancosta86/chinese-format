@@ -1,11 +1,11 @@
-use super::Hour;
-use crate::{Count, CountBase, CrateError, CrateResult};
+use super::{Hour, HourOutOfRange};
+use crate::{Count, CountBase};
 
 /// The hour in the 24-hour digital clock.
 ///
 /// It can be instantiated via a *fallible* conversion from [u8],
 /// succeeding if the integer is in the 0..=23 range; otherwise,
-/// [CrateError::HourOutOfRange] is returned.
+/// [HourOutOfRange] is returned.
 ///
 /// ```
 /// use chinese_format::{*, gregorian::*};
@@ -28,9 +28,9 @@ use crate::{Count, CountBase, CrateError, CrateResult};
 /// assert_eq!(before_midnight.to_chinese(Variant::Traditional), "二十三點");
 ///
 ///
-/// let invalid_result: CrateResult<Hour24> = 24.try_into();
+/// let invalid_result: Result<Hour24, HourOutOfRange> = 24.try_into();
 ///
-/// assert_eq!(invalid_result, Err(CrateError::HourOutOfRange(24)));
+/// assert_eq!(invalid_result, Err(HourOutOfRange(24)));
 ///
 /// # Ok(())
 /// # }
@@ -45,11 +45,11 @@ impl Hour for Hour24 {
 }
 
 impl TryFrom<u8> for Hour24 {
-    type Error = CrateError;
+    type Error = HourOutOfRange;
 
-    fn try_from(value: u8) -> CrateResult<Self> {
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
         if value >= 24 {
-            return Err(CrateError::HourOutOfRange(value));
+            return Err(HourOutOfRange(value));
         }
 
         Ok(Hour24(Count(value as CountBase)))

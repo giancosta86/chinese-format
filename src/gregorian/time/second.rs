@@ -1,4 +1,5 @@
-use crate::{define_measure, CrateError, CrateResult};
+use super::SecondOutOfRange;
+use crate::define_measure;
 
 define_measure!(pub, Second, pub(self), u8, "秒");
 
@@ -18,18 +19,18 @@ define_measure!(pub, Second, pub(self), u8, "秒");
 /// let highest: Second = 59.try_into().unwrap();
 /// assert_eq!(highest.to_chinese(Variant::Simplified), "五十九秒");
 ///
-/// let second_result: CrateResult<Second> = 60.try_into();
-/// assert_eq!(second_result, Err(CrateError::SecondOutOfRange(60)));
+/// let second_result: Result<Second, SecondOutOfRange> = 60.try_into();
+/// assert_eq!(second_result, Err(SecondOutOfRange(60)));
 ///
 /// # Ok(())
 /// # }
 /// ```
 impl TryFrom<u8> for Second {
-    type Error = CrateError;
+    type Error = SecondOutOfRange;
 
-    fn try_from(value: u8) -> CrateResult<Self> {
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
         if value >= 60 {
-            return Err(CrateError::SecondOutOfRange(value));
+            return Err(SecondOutOfRange(value));
         }
 
         Ok(Self(value))

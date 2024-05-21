@@ -1,4 +1,8 @@
-use crate::{chinese_vec, Chinese, ChineseFormat, CrateError, CrateResult, Sign, Variant};
+mod errors;
+
+use crate::{chinese_vec, Chinese, ChineseFormat, Sign, Variant};
+
+pub use errors::*;
 
 /// A fraction, convertible to Chinese.
 ///
@@ -8,7 +12,7 @@ use crate::{chinese_vec, Chinese, ChineseFormat, CrateError, CrateResult, Sign, 
 /// ```
 /// use chinese_format::*;
 ///
-/// # fn main() -> CrateResult<()> {
+/// # fn main() -> GenericResult<()> {
 /// let fraction = Fraction::try_new(8, 3)?;
 ///
 /// assert_eq!(fraction.numerator(), 3);
@@ -24,7 +28,7 @@ pub struct Fraction {
 }
 
 impl Fraction {
-    /// Tries to create a new fraction - failing with [CrateError::ZeroDenominator] if the denominator is 0.
+    /// Tries to create a new fraction - failing with [ZeroDenominator] if the denominator is 0.
     ///
     /// **Please, note:** as expected in Chinese, the `denominator` must be passed first.
     ///
@@ -33,21 +37,21 @@ impl Fraction {
     /// ```
     /// use chinese_format::*;
     ///
-    /// # fn main() -> CrateResult<()> {
+    /// # fn main() -> GenericResult<()> {
     /// let fraction = Fraction::try_new(9, 4)?;
     /// assert_eq!(fraction.numerator(), 4);
     /// assert_eq!(fraction.denominator(), 9);
     ///
     /// let error_result = Fraction::try_new(0, 3);
-    /// assert_eq!(error_result, Err(CrateError::ZeroDenominator));
+    /// assert_eq!(error_result, Err(ZeroDenominator));
     ///
     /// # Ok(())
     /// # }
     /// ```
     ///
-    pub fn try_new(denominator: u128, numerator: i128) -> CrateResult<Fraction> {
+    pub fn try_new(denominator: u128, numerator: i128) -> Result<Fraction, ZeroDenominator> {
         if denominator == 0 {
-            Err(CrateError::ZeroDenominator)
+            Err(ZeroDenominator)
         } else {
             Ok(Fraction {
                 denominator,
@@ -72,7 +76,7 @@ impl Fraction {
 /// ```
 /// use chinese_format::*;
 ///
-/// # fn main() -> CrateResult<()> {
+/// # fn main() -> GenericResult<()> {
 /// //Positive fractions
 /// let positive_fraction = Fraction::try_new(8, 3)?;
 /// assert_eq!(positive_fraction.to_chinese(Variant::Simplified), Chinese {

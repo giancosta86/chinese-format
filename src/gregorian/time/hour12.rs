@@ -1,5 +1,5 @@
-use super::{Hour, Hour24};
-use crate::{Count, CountBase, CrateError, CrateResult};
+use super::{Hour, Hour24, HourOutOfRange};
+use crate::{Count, CountBase};
 
 /// The hour shown on a traditional analog clock.
 ///
@@ -35,11 +35,11 @@ use crate::{Count, CountBase, CrateError, CrateResult};
 ///   assert_eq!(two.to_chinese(Variant::Simplified), "两点");
 ///   assert_eq!(two.to_chinese(Variant::Traditional), "兩點");
 ///
-///   let too_low_result: CrateResult<Hour12> = 0.try_into();
-///   assert_eq!(too_low_result, Err(CrateError::HourOutOfRange(0)));
+///   let too_low_result: Result<Hour12, HourOutOfRange> = 0.try_into();
+///   assert_eq!(too_low_result, Err(HourOutOfRange(0)));
 ///
-///   let too_high_result: CrateResult<Hour12> = 13.try_into();
-///   assert_eq!(too_high_result, Err(CrateError::HourOutOfRange(13)));
+///   let too_high_result: Result<Hour12, HourOutOfRange> = 13.try_into();
+///   assert_eq!(too_high_result, Err(HourOutOfRange(13)));
 ///
 ///   # Ok(())
 ///   # }
@@ -136,11 +136,11 @@ impl From<Hour24> for Hour12 {
 
 /// Conversion from [u8] is only allowed for the 1..=12 range.
 impl TryFrom<u8> for Hour12 {
-    type Error = CrateError;
+    type Error = HourOutOfRange;
 
-    fn try_from(value: u8) -> CrateResult<Self> {
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
         if !(1..=12).contains(&value) {
-            return Err(CrateError::HourOutOfRange(value));
+            return Err(HourOutOfRange(value));
         }
 
         Ok(Hour12(Count(value as CountBase)))

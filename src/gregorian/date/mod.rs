@@ -1,4 +1,5 @@
 mod day;
+mod errors;
 mod month;
 mod pattern;
 mod styled_week_day;
@@ -9,10 +10,11 @@ mod year;
 pub use self::pattern::*;
 pub use self::week_day::*;
 pub use self::week_format::*;
+pub use errors::*;
+
 use self::{day::Day, month::Month, styled_week_day::StyledWeekDay, year::Year};
-use crate::{
-    chinese_vec, Chinese, ChineseFormat, CrateError, CrateResult, EmptyPlaceholder, Variant,
-};
+use crate::GenericResult;
+use crate::{chinese_vec, Chinese, ChineseFormat, EmptyPlaceholder, Variant};
 
 /// Provides a configurable way to build [Date] instances.
 ///
@@ -132,30 +134,31 @@ use crate::{
 ///
 /// Invalid patterns (such as <year; week day>) and inexisting dates
 /// are not allowed: in these cases, building a [Date] returns the
-/// most suitable [CrateError].
+/// most suitable error.
 ///
 /// ```
 /// use chinese_format::{*, gregorian::*};
+/// use dyn_error::*;
 ///
 /// # fn main() -> GenericResult<()> {
 /// let absurd_builder = DateBuilder::new()
 ///     .with_month(4)
 ///     .with_day(31);
-/// assert_eq!(absurd_builder.build(), Err(CrateError::InvalidDate {
+/// assert_err_box!(absurd_builder.build(), InvalidDate {
 ///     year: None,
 ///     month: 4,
 ///     day: 31,
-/// }));
+/// });
 ///  
 /// let inexisting_builder = DateBuilder::new()
 ///     .with_year(2023)
 ///     .with_month(2)
 ///     .with_day(29);
-/// assert_eq!(inexisting_builder.build(), Err(CrateError::InvalidDate {
+/// assert_err_box!(inexisting_builder.build(), InvalidDate {
 ///     year: Some(2023),
 ///     month: 2,
 ///     day: 29,
-/// }));
+/// });
 ///
 /// let still_allowed_builder = DateBuilder::new()
 ///     .with_month(2)
@@ -166,18 +169,18 @@ use crate::{
 ///     .with_year(2023)
 ///     .with_month(2)
 ///     .with_day(90);
-/// assert_eq!(day_out_of_range_builder.build(), Err(CrateError::DayOutOfRange(90)));
+/// assert_err_box!(day_out_of_range_builder.build(), DayOutOfRange(90));
 ///
 /// let month_out_of_range_builder = DateBuilder::new()
 ///     .with_year(2023)
 ///     .with_month(67)
 ///     .with_day(9);
-/// assert_eq!(month_out_of_range_builder.build(), Err(CrateError::MonthOutOfRange(67)));
+/// assert_err_box!(month_out_of_range_builder.build(), MonthOutOfRange(67));
 ///
 /// let invalid_pattern_builder = DateBuilder::new()
 ///     .with_year(2023)
 ///     .with_day(9);
-/// assert_eq!(invalid_pattern_builder.build(), Err(CrateError::InvalidDatePattern("yd".to_string())));
+/// assert_err_box!(invalid_pattern_builder.build(), InvalidDatePattern("yd".to_string()));
 ///
 /// # Ok(())
 /// # }
@@ -261,7 +264,7 @@ impl DateBuilder {
         self
     }
 
-    fn validate_consistency(&self, year: Option<&Year>) -> CrateResult<()> {
+    fn validate_consistency(&self, year: Option<&Year>) -> Result<(), InvalidDate> {
         let is_leap_year = year.map(Year::is_leap).unwrap_or(true);
 
         if let Some(month_ordinal) = self.month {
@@ -276,7 +279,7 @@ impl DateBuilder {
                 };
 
                 if !day_is_valid {
-                    return Err(CrateError::InvalidDate {
+                    return Err(InvalidDate {
                         year: self.year,
                         month: month_ordinal,
                         day: day_ordinal,
@@ -290,7 +293,7 @@ impl DateBuilder {
 
     /// Creates a [Date] instance based on the current parameters,
     /// after performing validation.
-    pub fn build(&self) -> CrateResult<Date> {
+    pub fn build(&self) -> GenericResult<Date> {
         DatePattern::validate(DatePatternFlags {
             year: self.year.is_some(),
             month: self.month.is_some(),

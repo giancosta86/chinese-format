@@ -1,4 +1,5 @@
-use crate::{define_measure, CrateError, CrateResult};
+use super::MinuteOutOfRange;
+use crate::define_measure;
 
 define_measure!(pub, Minute, pub(self), u8, "分");
 
@@ -6,7 +7,7 @@ impl Minute {
     /// Returns the difference in a 60-minute time period.
     ///
     /// It is NOT defined for 0分 - returning, in this case,
-    /// [CrateError::MinuteOutOfRange].
+    /// [MinuteOutOfRange].
     ///
     /// ```
     /// use chinese_format::{*, gregorian::*};
@@ -31,12 +32,12 @@ impl Minute {
     /// assert_eq!(thirty.complement()?, thirty);
     ///
     /// let zero: Minute = 0.try_into()?;
-    /// assert_eq!(zero.complement(), Err(CrateError::MinuteOutOfRange(60)));
+    /// assert_eq!(zero.complement(), Err(MinuteOutOfRange(60)));
     ///
     /// # Ok(())
     /// # }
     /// ```
-    pub fn complement(&self) -> CrateResult<Self> {
+    pub fn complement(&self) -> Result<Self, MinuteOutOfRange> {
         (60 - self.0).try_into()
     }
 }
@@ -57,18 +58,18 @@ impl Minute {
 /// let highest: Minute = 59.try_into().unwrap();
 /// assert_eq!(highest.to_chinese(Variant::Simplified), "五十九分");
 ///
-/// let minute_result: CrateResult<Minute> = 60.try_into();
-/// assert_eq!(minute_result, Err(CrateError::MinuteOutOfRange(60)));
+/// let minute_result: Result<Minute, MinuteOutOfRange> = 60.try_into();
+/// assert_eq!(minute_result, Err(MinuteOutOfRange(60)));
 ///
 /// # Ok(())
 /// # }
 /// ```
 impl TryFrom<u8> for Minute {
-    type Error = CrateError;
+    type Error = MinuteOutOfRange;
 
-    fn try_from(value: u8) -> CrateResult<Self> {
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
         if value >= 60 {
-            return Err(CrateError::MinuteOutOfRange(value));
+            return Err(MinuteOutOfRange(value));
         }
 
         Ok(Self(value))

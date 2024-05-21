@@ -5,7 +5,7 @@ mod yuan;
 use self::{cent::Cent, dime::Dime, yuan::Yuan};
 use super::CurrencyStyle;
 use crate::{
-    chinese_vec, Chinese, ChineseFormat, CrateResult, EmptyPlaceholder, FinancialBase,
+    chinese_vec, Chinese, ChineseFormat, EmptyPlaceholder, FinancialBase, GenericResult,
     LingPlaceholder, Variant,
 };
 
@@ -120,21 +120,41 @@ impl RenminbiCurrencyBuilder {
         self
     }
 
-    /// Build an instance of [RenminbiCurrency] based on the provided settings.
+    /// Builds an instance of [RenminbiCurrency] based on the provided settings.
+    ///
+    /// ```
+    /// use chinese_format::{*, currency::*};
+    ///
+    /// # fn main() -> GenericResult<()> {
+    ///
+    /// let currency: RenminbiCurrency =
+    ///     RenminbiCurrencyBuilder::new()
+    ///         .with_yuan(72)
+    ///         .with_dimes(8)
+    ///         .with_cents(5)
+    ///         .with_style(CurrencyStyle::Everyday { formal: true })
+    ///         .build()?;
+    ///
+    /// assert_eq!(currency.to_chinese(Variant::Simplified), "七十二元八角五分");
+    ///
+    /// # Ok(())
+    /// # }
+    /// ```
     ///
     /// It may fail - for example, if dimes (角) or cents (分)
     /// are out of range:
     ///
     /// ```
     /// use chinese_format::{*, currency::*};
+    /// use dyn_error::*;
     ///
     /// let builder: RenminbiCurrencyBuilder =
     ///     RenminbiCurrencyBuilder::new()
     ///         .with_dimes(230);
     ///
-    /// assert_eq!(builder.build(), Err(CrateError::DimesOutOfRange(230)));
+    /// assert_err_box!(builder.build(), DimesOutOfRange(230));
     /// ```
-    pub fn build(&self) -> CrateResult<RenminbiCurrency> {
+    pub fn build(&self) -> GenericResult<RenminbiCurrency> {
         Ok(RenminbiCurrency {
             yuan: Yuan {
                 value: self.yuan,

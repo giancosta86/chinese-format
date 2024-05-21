@@ -1,9 +1,10 @@
+mod errors;
 mod flags;
 
-use crate::{CrateError, CrateResult};
 use lazy_static::lazy_static;
 use std::{collections::HashSet, fmt::Display};
 
+pub use errors::*;
 pub use flags::*;
 
 lazy_static! {
@@ -41,7 +42,7 @@ pub enum DatePattern {
 
 impl DatePattern {
     /// If the given component flags define a valid [DatePattern],
-    /// just returns [Ok]; otherwise returns [CrateError::InvalidDatePattern].
+    /// just returns [Ok]; otherwise returns [InvalidDatePattern].
     ///
     /// ```
     /// use chinese_format::{*, gregorian::*};
@@ -55,7 +56,7 @@ impl DatePattern {
     ///             week_day: false
     ///         }
     ///     ),
-    ///     Err(CrateError::InvalidDatePattern("".to_string()))
+    ///     Err(InvalidDatePattern("".to_string()))
     /// );
     ///
     /// assert_eq!(
@@ -67,7 +68,7 @@ impl DatePattern {
     ///             week_day: true
     ///         }
     ///     ),
-    ///     Err(CrateError::InvalidDatePattern("mw".to_string()))
+    ///     Err(InvalidDatePattern("mw".to_string()))
     /// );
     ///
     /// assert_eq!(
@@ -94,13 +95,13 @@ impl DatePattern {
     ///     Ok(())
     /// );
     /// ```
-    pub fn validate(flags: DatePatternFlags) -> CrateResult<()> {
+    pub fn validate(flags: DatePatternFlags) -> Result<(), InvalidDatePattern> {
         let flags_pattern = flags.to_string();
 
         if ALL_DATE_PATTERN_STRINGS.contains(flags_pattern.as_str()) {
             Ok(())
         } else {
-            Err(CrateError::InvalidDatePattern(flags_pattern))
+            Err(InvalidDatePattern(flags_pattern))
         }
     }
 
