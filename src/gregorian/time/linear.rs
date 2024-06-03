@@ -1,5 +1,5 @@
 use super::{DayPart, Hour, Hour12, Hour24, Minute, Second};
-use crate::{chinese_vec, Chinese, ChineseFormat, EmptyPlaceholder, Variant};
+use crate::{chinese_vec, Chinese, ChineseFormat, EmptyPlaceholder, LeftPadder, Variant};
 
 /// Time expression showing time linearly - from day part down to second.
 ///
@@ -63,6 +63,16 @@ use crate::{chinese_vec, Chinese, ChineseFormat, EmptyPlaceholder, Variant};
 ///     "晚上八点三十一分五十二秒"
 /// );
 ///
+/// assert_eq!(
+///     LinearTime {
+///         day_part: false,
+///         hour: 18.try_into()?,
+///         minute: 05.try_into()?,
+///         second: Some(07.try_into()?),
+///     }.to_chinese(Variant::Simplified),
+///     "十八点零五分零七秒"
+/// );
+///
 /// # Ok(())
 /// # }
 /// ```
@@ -97,8 +107,16 @@ impl ChineseFormat for LinearTime {
             [
                 EmptyPlaceholder::new(&day_part),
                 hour,
-                EmptyPlaceholder::new(&self.minute),
-                EmptyPlaceholder::new(&self.second)
+                EmptyPlaceholder::new(&LeftPadder {
+                    logogram: '零',
+                    min_width: 3,
+                    source: &self.minute
+                }),
+                EmptyPlaceholder::new(&LeftPadder {
+                    logogram: '零',
+                    min_width: 3,
+                    source: &self.second
+                })
             ]
         )
         .collect()
