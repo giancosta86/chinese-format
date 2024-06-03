@@ -27,27 +27,26 @@ pub enum WeekDay {
 /// use chinese_format::{*, gregorian::*};
 ///
 /// # fn main() -> GenericResult<()> {
-/// let mut day: WeekDay;
 ///
-/// day = 0.try_into()?;
+/// let day: WeekDay = 0.try_into()?;
 /// assert_eq!(day, WeekDay::Sunday);
 ///
-/// day = 1.try_into()?;
+/// let day: WeekDay = 1.try_into()?;
 /// assert_eq!(day, WeekDay::Monday);
 ///
-/// day = 2.try_into()?;
+/// let day: WeekDay = 2.try_into()?;
 /// assert_eq!(day, WeekDay::Tuesday);
 ///
-/// day = 3.try_into()?;
+/// let day: WeekDay = 3.try_into()?;
 /// assert_eq!(day, WeekDay::Wednesday);
 ///
-/// day = 4.try_into()?;
+/// let day: WeekDay = 4.try_into()?;
 /// assert_eq!(day, WeekDay::Thursday);
 ///
-/// day = 5.try_into()?;
+/// let day: WeekDay = 5.try_into()?;
 /// assert_eq!(day, WeekDay::Friday);
 ///
-/// day = 6.try_into()?;
+/// let day: WeekDay = 6.try_into()?;
 /// assert_eq!(day, WeekDay::Saturday);
 ///
 /// let result: Result<WeekDay, WeekDayOutOfRange> = 7.try_into();
