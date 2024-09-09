@@ -1,0 +1,21 @@
+name: Verify source code
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: main
+
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: giancosta86/aurora-github/actions/inject-branch-version@v2
+        with:
+          artifact-descriptor: Cargo.toml
+
+      - uses: giancosta86/aurora-github/actions/verify-rust-crate@v2
