@@ -8,7 +8,7 @@
 /// * a dedicated implementation of [Measure](crate::Measure).
 ///
 /// * the derived implementations of [Debug], [Clone], [Copy],
-/// [PartialEq], [Eq], [PartialOrd], [Ord], [Hash].
+///   [PartialEq], [Eq], [PartialOrd], [Ord], [Hash].
 ///
 /// * a [From] conversion to the underlying data type
 ///
