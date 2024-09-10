@@ -15,7 +15,5 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: giancosta86/aurora-github/actions/inject-branch-version@v2
-        with:
-          artifact-descriptor: Cargo.toml
 
       - uses: giancosta86/aurora-github/actions/verify-rust-crate@v2
