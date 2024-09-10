@@ -2,8 +2,8 @@
 
 _Convert data types to Chinese, with Rust_
 
-[![CI](https://github.com/giancosta86/chinese-format/actions/workflows/publish-to-crates.yml/badge.svg)](https://github.com/giancosta86/chinese-format/actions/workflows/publish-to-crates.yml)
-![Crates.io Version](https://img.shields.io/crates/v/chinese-format?style=flat&logo=rust)
+[![Crates.io Version](https://img.shields.io/crates/v/chinese-format?style=for-the-badge&logo=rust)
+](https://crates.io/crates/chinese-format)
 
 ![Logo](docs/logo.svg)
 
