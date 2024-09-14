@@ -11,95 +11,134 @@ use crate::{chinese_vec, Chinese, ChineseFormat, Variant};
 /// # fn main() -> GenericResult<()> {
 /// let o_clock = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 0.try_into()?
+///     minute: 0.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(o_clock.to_chinese(Variant::Simplified), "六点钟");
 /// assert_eq!(o_clock.to_chinese(Variant::Traditional), "六點鐘");
 ///
 /// let past_one = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 1.try_into()?
+///     minute: 1.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(past_one.to_chinese(Variant::Simplified), "六点过一分");
 /// assert_eq!(past_one.to_chinese(Variant::Traditional), "六點過一分");
 ///
 /// let past_five = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 5.try_into()?
+///     minute: 5.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(past_five.to_chinese(Variant::Simplified), "六点过五分");
 /// assert_eq!(past_five.to_chinese(Variant::Traditional), "六點過五分");
 ///
 /// let past_fourteen = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 14.try_into()?
+///     minute: 14.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(past_fourteen.to_chinese(Variant::Simplified), "六点过十四分");
 /// assert_eq!(past_fourteen.to_chinese(Variant::Traditional), "六點過十四分");
 ///
 /// let quarter = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 15.try_into()?
+///     minute: 15.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(quarter.to_chinese(Variant::Simplified), "六点刻");
 /// assert_eq!(quarter.to_chinese(Variant::Traditional), "六點刻");
 ///
 /// let past_sixteen = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 16.try_into()?
+///     minute: 16.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(past_sixteen.to_chinese(Variant::Simplified), "六点过十六分");
 /// assert_eq!(past_sixteen.to_chinese(Variant::Traditional), "六點過十六分");
 ///
 /// let past_twenty_nine = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 29.try_into()?
+///     minute: 29.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(past_twenty_nine.to_chinese(Variant::Simplified), "六点过二十九分");
 /// assert_eq!(past_twenty_nine.to_chinese(Variant::Traditional), "六點過二十九分");
 ///
 /// let half = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 30.try_into()?
+///     minute: 30.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(half.to_chinese(Variant::Simplified), "六点半");
 /// assert_eq!(half.to_chinese(Variant::Traditional), "六點半");
 ///
 /// let twenty_nine_to = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 31.try_into()?
+///     minute: 31.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(twenty_nine_to.to_chinese(Variant::Simplified), "七点差二十九分");
 /// assert_eq!(twenty_nine_to.to_chinese(Variant::Traditional), "七點差二十九分");
 ///
 /// let sixteen_to = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 44.try_into()?
+///     minute: 44.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(sixteen_to.to_chinese(Variant::Simplified), "七点差十六分");
 /// assert_eq!(sixteen_to.to_chinese(Variant::Traditional), "七點差十六分");
 ///
 /// let three_quarters = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 45.try_into()?
+///     minute: 45.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(three_quarters.to_chinese(Variant::Simplified), "六点三刻");
 /// assert_eq!(three_quarters.to_chinese(Variant::Traditional), "六點三刻");
 ///
 /// let fourteen_to = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 46.try_into()?
+///     minute: 46.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(fourteen_to.to_chinese(Variant::Simplified), "七点差十四分");
 /// assert_eq!(fourteen_to.to_chinese(Variant::Traditional), "七點差十四分");
 ///
 /// let one_to = DeltaTime {
 ///     hour: 6.try_into()?,
-///     minute: 59.try_into()?
+///     minute: 59.try_into()?,
+///     formal: false
 /// };
 /// assert_eq!(one_to.to_chinese(Variant::Simplified), "七点差一分");
 /// assert_eq!(one_to.to_chinese(Variant::Traditional), "七點差一分");
 ///
+/// # Ok(())
+/// # }
+/// ```
+///
+/// In formal style, 差 is placed *before* the hour expression, while 过 remains at its place:
+///
+/// ```
+/// use chinese_format::{*, gregorian::*};
+///
+/// # fn main() -> GenericResult<()> {
+/// let past_sixteen = DeltaTime {
+///     hour: 6.try_into()?,
+///     minute: 16.try_into()?,
+///     formal: true
+/// };
+/// assert_eq!(past_sixteen.to_chinese(Variant::Simplified), "六点过十六分");
+/// assert_eq!(past_sixteen.to_chinese(Variant::Traditional), "六點過十六分");
+///
+///
+/// let fourteen_to = DeltaTime {
+///     hour: 6.try_into()?,
+///     minute: 46.try_into()?,
+///     formal: true
+/// };
+/// assert_eq!(fourteen_to.to_chinese(Variant::Simplified), "差十四分七点");
+/// assert_eq!(fourteen_to.to_chinese(Variant::Traditional), "差十四分七點");
 /// # Ok(())
 /// # }
 /// ```
@@ -110,6 +149,9 @@ pub struct DeltaTime {
 
     /// The minute, as displayed by the *minute* hand of an analog clock.
     pub minute: Minute,
+
+    /// Whether the time should be expressed in a formal way.
+    pub formal: bool,
 }
 
 const ZHONG: (&str, &str) = ("钟", "鐘");
@@ -135,14 +177,15 @@ impl ChineseFormat for DeltaTime {
 
             45 => chinese_vec!(variant, [self.hour, 3, KE]),
 
-            _ => chinese_vec!(
-                variant,
-                [
-                    self.hour.next(),
-                    CHA,
-                    self.minute.complement().expect("0 is not in this range")
-                ]
-            ),
+            _ => {
+                let minute_complement = self.minute.complement().expect("0 is not in this range");
+
+                if self.formal {
+                    chinese_vec!(variant, [CHA, minute_complement, self.hour.next()])
+                } else {
+                    chinese_vec!(variant, [self.hour.next(), CHA, minute_complement])
+                }
+            }
         }
         .collect()
     }
