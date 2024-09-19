@@ -14,6 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v2
+      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
 
-      - uses: giancosta86/aurora-github/actions/verify-rust-crate@v2
+      - uses: giancosta86/aurora-github/actions/verify-rust-crate@v3
