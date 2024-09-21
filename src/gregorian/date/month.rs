@@ -20,39 +20,32 @@ impl TryFrom<u8> for Month {
 mod tests {
     use super::*;
     use crate::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use pretty_assertions::assert_eq;
 
-    speculate! {
-        describe "Month struct" {
-            describe "conversion from unsigned" {
-                describe "when the value is in range" {
-                    it "should work" {
-                        let month: Month = 3.try_into().unwrap();
+    #[test]
+    fn conversion_from_unsigned() {
+        let month: Month = 3.try_into().unwrap();
 
-                        eq!(month.to_chinese(Variant::Simplified), Chinese {
-                            logograms: "三月".to_string(),
-                            omissible: false
-                        });
-                    }
-                }
-
-                describe "when the value is too low" {
-                    it "should fail" {
-                        let too_small_result: Result<Month, MonthOutOfRange> = 0.try_into();
-
-                        eq!(too_small_result, Err(MonthOutOfRange(0)));
-                    }
-                }
-
-                describe "when the value is too high" {
-                    it "should fail" {
-                        let too_high_result: Result<Month, MonthOutOfRange> = 13.try_into();
-
-                        eq!(too_high_result, Err(MonthOutOfRange(13)));
-                    }
-                }
+        assert_eq!(
+            month.to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "三月".to_string(),
+                omissible: false
             }
-        }
+        );
+    }
+
+    #[test]
+    fn conversion_from_too_low_unsigned() {
+        let too_low_result: Result<Month, MonthOutOfRange> = 0.try_into();
+
+        assert_eq!(too_low_result, Err(MonthOutOfRange(0)));
+    }
+
+    #[test]
+    fn conversion_from_too_high_unsigned() {
+        let too_high_result: Result<Month, MonthOutOfRange> = 13.try_into();
+
+        assert_eq!(too_high_result, Err(MonthOutOfRange(13)));
     }
 }

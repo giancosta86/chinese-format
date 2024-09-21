@@ -32,58 +32,42 @@ impl From<&Year> for u16 {
 mod tests {
     use super::*;
     use crate::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use pretty_assertions::assert_eq;
 
-    speculate! {
-        describe "Year struct" {
-            describe "according to leap test" {
-                describe "when not divisible by 4" {
-                    it "should not be leap" {
-                        let not_divisible_by_4: Year = 2023.into();
-                        assert!(!not_divisible_by_4.is_leap());
-                    }
-                }
+    #[test]
+    fn convert_from_unsigned() {
+        let year: Year = 1992.into();
+        assert_eq!(year.to_chinese(Variant::Simplified), "一九九二年");
+    }
 
-                describe "when divisible by 4 but not 100" {
-                    it "should be leap" {
-                        let divisible_by_4_not_by_100: Year = 2024.into();
-                        assert!(divisible_by_4_not_by_100.is_leap());
-                    }
-                }
+    #[test]
+    fn convert_to_unsigned() {
+        let year: Year = 1492.into();
+        let converted: u16 = (&year).into();
+        assert_eq!(converted, 1492);
+    }
 
-                describe "when divisible by 100 but not 400" {
-                    it "should not be leap" {
-                        let divisible_by_100_not_by_400: Year = 1300.into();
-                        assert!(!divisible_by_100_not_by_400.is_leap());
-                    }
-                }
+    #[test]
+    fn leap_year_when_not_divisible_by_4() {
+        let not_divisible_by_4: Year = 2023.into();
+        assert!(!not_divisible_by_4.is_leap());
+    }
 
-                describe "when divisible by 400" {
-                    it "should be leap" {
-                        let divisible_by_400: Year = 2000.into();
-                        assert!(divisible_by_400.is_leap());
-                    }
-                }
-            }
+    #[test]
+    fn leap_year_when_divisible_by_4_but_not_by_100() {
+        let divisible_by_4_not_by_100: Year = 2024.into();
+        assert!(divisible_by_4_not_by_100.is_leap());
+    }
 
-            describe "conversion from unsigned" {
-                it "should work" {
-                    let year: Year = 1992.into();
-                    eq!(
-                        year.to_chinese(Variant::Simplified),
-                        "一九九二年"
-                    );
-                }
-            }
+    #[test]
+    fn leap_year_when_divisible_by_100_but_not_400() {
+        let divisible_by_100_not_by_400: Year = 1300.into();
+        assert!(!divisible_by_100_not_by_400.is_leap());
+    }
 
-            describe "conversion to unsigned" {
-                it "should work" {
-                    let year: Year = 1492.into();
-                    let converted: u16 = (&year).into();
-                    eq!(converted, 1492);
-                }
-            }
-        }
+    #[test]
+    fn leap_year_when_divisible_by_400() {
+        let divisible_by_400: Year = 2000.into();
+        assert!(divisible_by_400.is_leap());
     }
 }

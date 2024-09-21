@@ -16,10 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v2
+      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
 
-      - uses: giancosta86/aurora-github/actions/publish-rust-crate@v2
+      - uses: giancosta86/aurora-github/actions/publish-rust-crate@v3
         with:
           cargo-token: ${{ secrets.CARGO_TOKEN }}
 
-      - uses: giancosta86/aurora-github/actions/tag-and-release@v2
+      - uses: giancosta86/aurora-github/actions/tag-and-release@v3

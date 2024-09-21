@@ -24,13 +24,13 @@ include = [
 
 [dependencies]
 chinese-number = "0.7.7"
-lazy_static = "1.4.0"
-digit-sequence = { version = "0.3.4", optional = true }
+lazy_static = "1.5.0"
+digit-sequence = { version = "0.3.8", optional = true }
 
 [dev-dependencies]
-pretty_assertions = "1.4.0"
-speculate2 = "0.2"
-dyn-error = "0.2.0"
+pretty_assertions = "1.4.1"
+dyn-error = "0.2.2"
+paste = "1.0.15"
 
 [features]
 currency = []

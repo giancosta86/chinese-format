@@ -36,118 +36,133 @@ impl ChineseFormat for Yuan {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use pretty_assertions::assert_eq;
 
-    speculate! {
-        describe "Yuan (元) unit" {
-            describe "converting to the underlying numeric type" {
-                it "should work" {
-                    let converted: FinancialBase = Yuan {
-                        value: 90,
-                        style: CurrencyStyle::Financial
-                    }.into();
-
-                    eq!(converted, 90);
-                }
-            }
-
-            describe "when converting to everyday formal style" {
-                it "should work" {
-                    let two_formal = Yuan {
-                        value: 2,
-                        style: CurrencyStyle::Everyday { formal: true }
-                    };
-
-                    eq!(two_formal.to_chinese(Variant::Simplified), Chinese {
-                        logograms: "两元".to_string(),
-                        omissible: false
-                    });
-
-                    eq!(two_formal.to_chinese(Variant::Traditional), Chinese {
-                        logograms: "兩元".to_string(),
-                        omissible: false
-                    });
-                }
-            }
-
-            describe "when converting to everyday informal style" {
-                it "should work" {
-                    let two_informal = Yuan {
-                        value: 2,
-                        style: CurrencyStyle::Everyday { formal: false }
-                    };
-
-                    eq!(two_informal.to_chinese(Variant::Simplified), Chinese {
-                        logograms: "两块".to_string(),
-                        omissible: false
-                    });
-
-                    eq!(two_informal.to_chinese(Variant::Traditional), Chinese {
-                        logograms: "兩块".to_string(),
-                        omissible: false
-                    });
-                }
-            }
-
-            describe "when converting to financial format" {
-                it "should work" {
-                    let two_financial = Yuan {
-                        value: 2,
-                        style: CurrencyStyle::Financial
-                    };
-
-                    eq!(two_financial.to_chinese(Variant::Simplified), Chinese {
-                        logograms: "贰元".to_string(),
-                        omissible: false
-                    });
-
-                    eq!(two_financial.to_chinese(Variant::Traditional), Chinese {
-                        logograms: "貳元".to_string(),
-                        omissible: false
-                    });
-                }
-            }
-
-            describe "when converting zero" {
-                it "should work" {
-                    eq!(
-                        Yuan {
-                            value: 0,
-                            style: CurrencyStyle::Everyday { formal: true }
-                        }.to_chinese(Variant::Simplified),
-
-                        Chinese {
-                            logograms: "零元".to_string(),
-                            omissible: true
-                        }
-                    );
-
-                    eq!(
-                        Yuan {
-                            value: 0,
-                            style: CurrencyStyle::Everyday { formal: false }
-                        }.to_chinese(Variant::Simplified),
-
-                        Chinese {
-                            logograms: "零块".to_string(),
-                            omissible: true
-                        }
-                    );
-
-                    eq!(
-                        Yuan {
-                            value: 0,
-                            style: CurrencyStyle::Financial
-                        }.to_chinese(Variant::Simplified),
-
-                        Chinese {
-                            logograms: "零元".to_string(),
-                            omissible: true
-                        }
-                    );
-                }
-            }
+    #[test]
+    fn convert_to_the_underlying_numeric_type() {
+        let converted: FinancialBase = Yuan {
+            value: 90,
+            style: CurrencyStyle::Everyday { formal: false },
         }
+        .into();
+
+        assert_eq!(converted, 90);
+    }
+
+    #[test]
+    fn format_everyday_formal() {
+        let two_formal = Yuan {
+            value: 2,
+            style: CurrencyStyle::Everyday { formal: true },
+        };
+
+        assert_eq!(
+            two_formal.to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "两元".to_string(),
+                omissible: false
+            }
+        );
+
+        assert_eq!(
+            two_formal.to_chinese(Variant::Traditional),
+            Chinese {
+                logograms: "兩元".to_string(),
+                omissible: false
+            }
+        );
+    }
+
+    #[test]
+    fn format_everyday_informal() {
+        let two_informal = Yuan {
+            value: 2,
+            style: CurrencyStyle::Everyday { formal: false },
+        };
+
+        assert_eq!(
+            two_informal.to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "两块".to_string(),
+                omissible: false
+            }
+        );
+
+        assert_eq!(
+            two_informal.to_chinese(Variant::Traditional),
+            Chinese {
+                logograms: "兩块".to_string(),
+                omissible: false
+            }
+        );
+    }
+
+    #[test]
+    fn format_financial() {
+        let two_financial = Yuan {
+            value: 2,
+            style: CurrencyStyle::Financial,
+        };
+
+        assert_eq!(
+            two_financial.to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "贰元".to_string(),
+                omissible: false
+            }
+        );
+
+        assert_eq!(
+            two_financial.to_chinese(Variant::Traditional),
+            Chinese {
+                logograms: "貳元".to_string(),
+                omissible: false
+            }
+        );
+    }
+
+    #[test]
+    fn format_everyday_formal_zero() {
+        assert_eq!(
+            Yuan {
+                value: 0,
+                style: CurrencyStyle::Everyday { formal: true }
+            }
+            .to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "零元".to_string(),
+                omissible: true
+            }
+        );
+    }
+
+    #[test]
+    fn format_everyday_informal_zero() {
+        assert_eq!(
+            Yuan {
+                value: 0,
+                style: CurrencyStyle::Everyday { formal: false }
+            }
+            .to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "零块".to_string(),
+                omissible: true
+            }
+        );
+    }
+
+    #[test]
+    fn format_financial_zero() {
+        assert_eq!(
+            Yuan {
+                value: 0,
+                style: CurrencyStyle::Financial
+            }
+            .to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "零元".to_string(),
+                omissible: true
+            }
+        );
     }
 }

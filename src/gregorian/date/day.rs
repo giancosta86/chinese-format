@@ -41,54 +41,33 @@ impl Day {
 mod tests {
     use super::*;
     use crate::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use pretty_assertions::assert_eq;
 
-    speculate! {
-        describe "Day struct" {
-            describe "formal" {
-                describe "when valid" {
-                    before {
-                        let formal_day = Day::try_new_formal(5).unwrap();
-                    }
+    #[test]
+    fn format_formal() {
+        let formal_day = Day::try_new_formal(5).unwrap();
 
-                    it "should be convertible to Chinese" {
-                        eq!(formal_day.to_chinese(Variant::Simplified), "五号");
+        assert_eq!(formal_day.to_chinese(Variant::Simplified), "五号");
+        assert_eq!(formal_day.to_chinese(Variant::Traditional), "五號");
+    }
 
-                        eq!(formal_day.to_chinese(Variant::Traditional), "五號");
-                    }
-                }
+    #[test]
+    fn create_formal_from_invalid_values() {
+        assert_eq!(Day::try_new_formal(0), Err(DayOutOfRange(0)));
+        assert_eq!(Day::try_new_formal(32), Err(DayOutOfRange(32)));
+    }
 
-                describe "when converting from invalid values" {
-                    it "should fail" {
-                        eq!(Day::try_new_formal(0), Err(DayOutOfRange(0)));
+    #[test]
+    fn format_informal() {
+        let informal_day = Day::try_new_informal(7).unwrap();
 
-                        eq!(Day::try_new_formal(32), Err(DayOutOfRange(32)));
-                    }
-                }
-            }
+        assert_eq!(informal_day.to_chinese(Variant::Simplified), "七日");
+        assert_eq!(informal_day.to_chinese(Variant::Traditional), "七日");
+    }
 
-            describe "informal" {
-                describe "when valid" {
-                    before {
-                        let informal_day = Day::try_new_informal(7).unwrap();
-                    }
-
-                    it "should be convertible to Chinese" {
-                        eq!(informal_day.to_chinese(Variant::Simplified), "七日");
-
-                        eq!(informal_day.to_chinese(Variant::Traditional), "七日");
-                    }
-                }
-
-                describe "when converting from invalid values" {
-                    it "should fail" {
-                        eq!(Day::try_new_informal(0), Err(DayOutOfRange(0)));
-
-                        eq!(Day::try_new_informal(32), Err(DayOutOfRange(32)));
-                    }
-                }
-            }
-        }
+    #[test]
+    fn create_informal_from_invalid_values() {
+        assert_eq!(Day::try_new_informal(0), Err(DayOutOfRange(0)));
+        assert_eq!(Day::try_new_informal(32), Err(DayOutOfRange(32)));
     }
 }

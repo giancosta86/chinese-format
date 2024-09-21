@@ -2,8 +2,7 @@
 
 _Convert data types to Chinese, with Rust_
 
-[![Crates.io Version](https://img.shields.io/crates/v/chinese-format?style=for-the-badge&logo=rust)
-](https://crates.io/crates/chinese-format)
+[![Crates.io Version](https://img.shields.io/crates/v/chinese-format?style=for-the-badge&logo=rust&color=forestgreen)](https://crates.io/crates/chinese-format)
 
 ![Logo](docs/logo.svg)
 
