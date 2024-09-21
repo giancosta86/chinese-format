@@ -43,182 +43,124 @@ impl_number_to_chinese!(i8);
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use paste::paste;
 
-    speculate! {
-            describe "Converting an integer" {
-                describe "to simplified Chinese" {
-                    fn test_signed(source: i128, expected_chinese: &str) {
-                        let chinese = source.to_chinese(Variant::Simplified);
-                        eq!(chinese, expected_chinese);
-                    }
-
-                    fn test_unsigned(source: u128, expected_chinese: &str) {
-                        let chinese = source.to_chinese(Variant::Simplified);
-                        eq!(chinese, expected_chinese);
-                    }
-
-                    it "should convert 0" {
-                        test_signed(0, "零");
-                    }
-
-                    it "should convert 1" {
-                       test_signed(1, "一");
-                    }
-
-                    it "should convert 10" {
-                        test_signed(10, "十");
-                    }
-
-                    it "should convert 17" {
-                        test_signed(17, "十七");
-                    }
-
-                    it "should convert 86" {
-                        test_signed(86, "八十六");
-                    }
-
-                    it "should convert 100" {
-                        test_signed(100, "一百");
-                    }
-
-                    it "should convert 305" {
-                        test_signed(305, "三百零五");
-                    }
-
-                    it "should convert 330" {
-                        test_signed(330, "三百三十");
-                    }
-
-                    it "should convert 800" {
-                        test_signed(800, "八百");
-                    }
-
-                    it "should convert 3000" {
-                        test_signed(3000, "三千");
-                    }
-
-                    it "should convert 3005" {
-                        test_signed(3005, "三千零五");
-                    }
-
-                    it "should convert 3017" {
-                        test_signed(3017, "三千零一十七");
-                    }
-
-                    it "should convert 7341" {
-                        test_signed(7341, "七千三百四十一");
-                    }
-
-                    it "should convert 10_000" {
-                        test_signed(10_000, "一万");
-                    }
-
-                    it "should convert 10_008" {
-                        test_signed(10_008, "一万零八");
-                    }
-
-                    it "should convert 321_987_653_112" {
-                        test_signed(321_987_653_112, "三千二百一十九亿八千七百六十五万三千一百一十二");
-                    }
-
-                    it "should convert u128::MAX" {
-                        test_unsigned(u128::MAX, "三百四十涧二千八百二十三沟六千六百九十二穰零九百三十八秭四千六百三十四垓六千三百三十七京四千六百零七兆四千三百一十七亿六千八百二十一万一千四百五十五");
-                    }
-
-                    it "should convert -58" {
-                        test_signed(-58, "负五十八");
-                    }
-
-                    it "should convert i128::MIN" {
-                        test_signed(i128::MIN, "负一百七十涧一千四百一十一沟八千三百四十六穰零四百六十九秭二千三百一十七垓三千一百六十八京七千三百零三兆七千一百五十八亿八千四百一十万五千七百二十八");
-                    }
-
-                    describe "when converting different types" {
-                        macro_rules! test_case {
-                            ($source: expr, $expected_chinese: expr) => {
-                                let chinese = $source.to_chinese(Variant::Simplified);
-
-                                eq!(
-                                    chinese,
-                                    $expected_chinese
-                                );
-                            }
-                        }
-
-                        it "should convert u128" {
-                            test_case!(98u128, "九十八");
-                        }
-
-                        it "should convert u64" {
-                            test_case!(98u64, "九十八");
-                        }
-
-                        it "should convert u32" {
-                            test_case!(98u32, "九十八");
-                        }
-
-                        it "should convert u16" {
-                            test_case!(98u16, "九十八");
-                        }
-
-                        it "should convert u8" {
-                            test_case!(98u8, "九十八");
-                        }
-
-                        it "should convert i128" {
-                            test_case!(98i128, "九十八");
-                        }
-
-                        it "should convert i64" {
-                            test_case!(98i64, "九十八");
-                        }
-
-                        it "should convert i32" {
-                            test_case!(98i32, "九十八");
-                        }
-
-                        it "should convert i16" {
-                            test_case!(98i16, "九十八");
-                        }
-
-                        it "should convert i8" {
-                            test_case!(98i8, "九十八");
-                        }
-                    }
-                }
-
-                describe "to traditional Chinese" {
-                    fn test_case(source: i128, expected_chinese: &str) {
-                        let chinese = source.to_chinese(Variant::Traditional);
-                        eq!(chinese, expected_chinese);
-                    }
-
-                    it "should convert 305" {
-                        test_case(305, "三百零五");
-                    }
-
-                    it "should convert -58" {
-                        test_case(-58, "負五十八");
-                    }
-                }
-
-                describe "in terms of omissible" {
-                    describe "when converting 0" {
-                        it "should be omissible" {
-                            assert!(0.to_chinese(Variant::Simplified).omissible);
-                            assert!(0.to_chinese(Variant::Traditional).omissible);
-                        }
-                    }
-
-                    describe "when converting non-zero" {
-                        it "should NOT be omissible" {
-                            assert!(!7.to_chinese(Variant::Simplified).omissible);
-                            assert!(!7.to_chinese(Variant::Traditional).omissible);
-                        }
-                    }
+    macro_rules! assert_chinese {
+        (
+            $num_description: literal,
+            $num: expr,
+            $variant_description: ident,
+            $variant: expr,
+            $expected_chinese: literal
+        ) => {
+            paste! {
+                #[test]
+                fn [<format_ $num_description _to_ $variant_description>]() {
+                    let chinese = ($num).to_chinese($variant);
+                    assert_eq!(chinese, $expected_chinese);
                 }
             }
+        };
+    }
+
+    macro_rules! assert_simplified {
+        (
+            $num_description: literal,
+            $num: expr,
+            $expected_chinese: literal
+        ) => {
+            assert_chinese!(
+                $num_description,
+                $num,
+                simplified,
+                Variant::Simplified,
+                $expected_chinese
+            );
+        };
+
+        (
+            $num: expr,
+            $expected_chinese: literal
+        ) => {
+            paste! {
+                assert_simplified!($num, $num, $expected_chinese);
+            }
+        };
+    }
+
+    macro_rules! assert_traditional {
+        (
+            $num_description: literal,
+            $num: expr,
+            $expected_chinese: literal
+        ) => {
+            assert_chinese!(
+                $num_description,
+                $num,
+                traditional,
+                Variant::Traditional,
+                $expected_chinese
+            );
+        };
+
+        (
+            $num: expr,
+            $expected_chinese: literal
+        ) => {
+            paste! {
+                assert_traditional!($num, $num, $expected_chinese);
+            }
+        };
+    }
+
+    assert_simplified!(0_i128, "零");
+    assert_simplified!(1_i128, "一");
+    assert_simplified!(10_i128, "十");
+    assert_simplified!(17_i128, "十七");
+    assert_simplified!(86_i128, "八十六");
+    assert_simplified!(100_i128, "一百");
+    assert_simplified!(305_i128, "三百零五");
+    assert_simplified!(330_i128, "三百三十");
+    assert_simplified!(800_i128, "八百");
+    assert_simplified!(3_000_i128, "三千");
+    assert_simplified!(3_005_i128, "三千零五");
+    assert_simplified!(3_017_i128, "三千零一十七");
+    assert_simplified!(7_341_i128, "七千三百四十一");
+    assert_simplified!(10_000_i128, "一万");
+    assert_simplified!(10_008_i128, "一万零八");
+    assert_simplified!(
+        321_987_653_112_i128,
+        "三千二百一十九亿八千七百六十五万三千一百一十二"
+    );
+    assert_simplified!("minus_58", -58, "负五十八");
+    assert_simplified!("i128_min", i128::MIN, "负一百七十涧一千四百一十一沟八千三百四十六穰零四百六十九秭二千三百一十七垓三千一百六十八京七千三百零三兆七千一百五十八亿八千四百一十万五千七百二十八");
+
+    assert_simplified!("u128_max", u128::MAX, "三百四十涧二千八百二十三沟六千六百九十二穰零九百三十八秭四千六百三十四垓六千三百三十七京四千六百零七兆四千三百一十七亿六千八百二十一万一千四百五十五");
+
+    assert_simplified!(98_u128, "九十八");
+    assert_simplified!(98_u64, "九十八");
+    assert_simplified!(98_u32, "九十八");
+    assert_simplified!(98_u16, "九十八");
+    assert_simplified!(98_u8, "九十八");
+
+    assert_simplified!(98_i128, "九十八");
+    assert_simplified!(98_i64, "九十八");
+    assert_simplified!(98_i32, "九十八");
+    assert_simplified!(98_i16, "九十八");
+    assert_simplified!(98_i8, "九十八");
+
+    assert_traditional!(305, "三百零五");
+    assert_traditional!("minus_58", -58, "負五十八");
+
+    #[test]
+    fn check_omissible_for_zero() {
+        assert!(0.to_chinese(Variant::Simplified).omissible);
+        assert!(0.to_chinese(Variant::Traditional).omissible);
+    }
+
+    #[test]
+    fn check_omissible_for_nonzero() {
+        assert!(!7.to_chinese(Variant::Simplified).omissible);
+        assert!(!7.to_chinese(Variant::Traditional).omissible);
     }
 }

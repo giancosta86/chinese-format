@@ -49,138 +49,152 @@ impl ChineseFormat for Dime {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use pretty_assertions::assert_eq;
 
-    speculate! {
-        describe "Dime (角) unit" {
-            describe "when calling the constructor" {
-                describe "with a value less than or equal to 9" {
-                    it "should succeed" {
-                        eq!(
-                            Dime::try_new(9, CurrencyStyle::Financial).unwrap(),
-                            Dime {
-                                value: 9,
-                                style: CurrencyStyle::Financial
-                            }
-                        );
-                    }
-                }
-
-                describe "with a value greater than 9" {
-                    it "should fail" {
-                        eq!(Dime::try_new(10, CurrencyStyle::Financial), Err(DimesOutOfRange(10)))
-                    }
-                }
+    #[test]
+    fn create_from_value_less_than_or_equal_to_9() {
+        assert_eq!(
+            Dime::try_new(9, CurrencyStyle::Financial).unwrap(),
+            Dime {
+                value: 9,
+                style: CurrencyStyle::Financial
             }
+        );
+    }
 
-            describe "converting to the underlying numeric type" {
-                it "should work" {
-                    let converted: u8 = Dime {
-                        value: 2,
-                        style: CurrencyStyle::Financial
-                    }.into();
+    #[test]
+    fn create_from_value_greater_than_9() {
+        assert_eq!(
+            Dime::try_new(10, CurrencyStyle::Financial),
+            Err(DimesOutOfRange(10))
+        )
+    }
 
-                    eq!(converted, 2);
-                }
-            }
-
-            describe "when converting to everyday formal style" {
-                it "should work" {
-                    let two_formal = Dime {
-                        value: 2,
-                        style: CurrencyStyle::Everyday { formal: true }
-                    };
-
-                    eq!(two_formal.to_chinese(Variant::Simplified), Chinese {
-                        logograms: "两角".to_string(),
-                        omissible: false
-                    });
-
-                    eq!(two_formal.to_chinese(Variant::Traditional), Chinese {
-                        logograms: "兩角".to_string(),
-                        omissible: false
-                    });
-                }
-            }
-
-            describe "when converting to everyday informal style" {
-                it "should work" {
-                    let two_informal = Dime {
-                        value: 2,
-                        style: CurrencyStyle::Everyday { formal: false }
-                    };
-
-                    eq!(two_informal.to_chinese(Variant::Simplified), Chinese {
-                        logograms: "两毛".to_string(),
-                        omissible: false
-                    });
-
-                    eq!(two_informal.to_chinese(Variant::Traditional), Chinese {
-                        logograms: "兩毛".to_string(),
-                        omissible: false
-                    });
-                }
-            }
-
-            describe "when converting to financial format" {
-                it "should work" {
-                    let two_financial = Dime {
-                        value: 2,
-                        style: CurrencyStyle::Financial
-                    };
-
-                    eq!(two_financial.to_chinese(Variant::Simplified), Chinese {
-                        logograms: "贰角".to_string(),
-                        omissible: false
-                    });
-
-                    eq!(two_financial.to_chinese(Variant::Traditional), Chinese {
-                        logograms: "貳角".to_string(),
-                        omissible: false
-                    });
-                }
-            }
-
-            describe "when converting zero" {
-                it "should work" {
-                    eq!(
-                        Dime {
-                            value: 0,
-                            style: CurrencyStyle::Everyday { formal: true }
-                        }.to_chinese(Variant::Simplified),
-
-                        Chinese {
-                            logograms: "零角".to_string(),
-                            omissible: true
-                        }
-                    );
-
-                    eq!(
-                        Dime {
-                            value: 0,
-                            style: CurrencyStyle::Everyday { formal: false }
-                        }.to_chinese(Variant::Simplified),
-
-                        Chinese {
-                            logograms: "零毛".to_string(),
-                            omissible: true
-                        }
-                    );
-
-                    eq!(
-                        Dime {
-                            value: 0,
-                            style: CurrencyStyle::Financial
-                        }.to_chinese(Variant::Simplified),
-
-                        Chinese {
-                            logograms: "零角".to_string(),
-                            omissible: true
-                        }
-                    );
-                }
-            }
+    #[test]
+    fn convert_to_the_underlying_numeric_type() {
+        let converted: u8 = Dime {
+            value: 2,
+            style: CurrencyStyle::Everyday { formal: false },
         }
+        .into();
+
+        assert_eq!(converted, 2);
+    }
+
+    #[test]
+    fn format_everyday_formal() {
+        let two_formal = Dime {
+            value: 2,
+            style: CurrencyStyle::Everyday { formal: true },
+        };
+
+        assert_eq!(
+            two_formal.to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "两角".to_string(),
+                omissible: false
+            }
+        );
+
+        assert_eq!(
+            two_formal.to_chinese(Variant::Traditional),
+            Chinese {
+                logograms: "兩角".to_string(),
+                omissible: false
+            }
+        );
+    }
+
+    #[test]
+    fn format_everyday_informal() {
+        let two_informal = Dime {
+            value: 2,
+            style: CurrencyStyle::Everyday { formal: false },
+        };
+
+        assert_eq!(
+            two_informal.to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "两毛".to_string(),
+                omissible: false
+            }
+        );
+
+        assert_eq!(
+            two_informal.to_chinese(Variant::Traditional),
+            Chinese {
+                logograms: "兩毛".to_string(),
+                omissible: false
+            }
+        );
+    }
+
+    #[test]
+    fn format_financial() {
+        let two_financial = Dime {
+            value: 2,
+            style: CurrencyStyle::Financial,
+        };
+
+        assert_eq!(
+            two_financial.to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "贰角".to_string(),
+                omissible: false
+            }
+        );
+
+        assert_eq!(
+            two_financial.to_chinese(Variant::Traditional),
+            Chinese {
+                logograms: "貳角".to_string(),
+                omissible: false
+            }
+        );
+    }
+
+    #[test]
+    fn format_everyday_formal_zero() {
+        assert_eq!(
+            Dime {
+                value: 0,
+                style: CurrencyStyle::Everyday { formal: true }
+            }
+            .to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "零角".to_string(),
+                omissible: true
+            }
+        );
+    }
+
+    #[test]
+    fn format_everyday_informal_zero() {
+        assert_eq!(
+            Dime {
+                value: 0,
+                style: CurrencyStyle::Everyday { formal: false }
+            }
+            .to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "零毛".to_string(),
+                omissible: true
+            }
+        );
+    }
+
+    #[test]
+    fn format_financial_zero() {
+        assert_eq!(
+            Dime {
+                value: 0,
+                style: CurrencyStyle::Financial
+            }
+            .to_chinese(Variant::Simplified),
+            Chinese {
+                logograms: "零角".to_string(),
+                omissible: true
+            }
+        );
     }
 }

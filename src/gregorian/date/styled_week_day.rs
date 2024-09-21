@@ -30,42 +30,47 @@ impl ChineseFormat for StyledWeekDay {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use pretty_assertions::assert_eq;
 
-    speculate! {
-        describe "Styled week day" {
-            it "should be convertible to Chinese" {
-                let friday = StyledWeekDay {
-                    week_format: WeekFormat::XingQi,
-                    week_day: WeekDay::Friday
-                };
-                eq!(friday.to_chinese(Variant::Simplified), "星期五");
+    #[test]
+    fn format_sunday() {
+        let sunday_xing_qi = StyledWeekDay {
+            week_format: WeekFormat::XingQi,
+            week_day: WeekDay::Sunday,
+        };
+        assert_eq!(sunday_xing_qi.to_chinese(Variant::Simplified), "星期天");
 
-                let sunday_xing_qi = StyledWeekDay {
-                    week_format: WeekFormat::XingQi,
-                    week_day: WeekDay::Sunday,
-                };
-                eq!(sunday_xing_qi.to_chinese(Variant::Simplified), "星期天");
+        let sunday_zhou = StyledWeekDay {
+            week_format: WeekFormat::Zhou,
+            week_day: WeekDay::Sunday,
+        };
+        assert_eq!(sunday_zhou.to_chinese(Variant::Simplified), "周日");
 
-                let sunday_zhou = StyledWeekDay {
-                    week_format: WeekFormat::Zhou,
-                    week_day: WeekDay::Sunday,
-                };
-                eq!(sunday_zhou.to_chinese(Variant::Simplified), "周日");
+        let sunday_libai = StyledWeekDay {
+            week_format: WeekFormat::LiBai,
+            week_day: WeekDay::Sunday,
+        };
+        assert_eq!(sunday_libai.to_chinese(Variant::Simplified), "礼拜天");
+    }
 
-                let wednesday_xing_qi = StyledWeekDay {
-                    week_format: WeekFormat::XingQi,
-                    week_day: WeekDay::Wednesday,
-                };
-                eq!(wednesday_xing_qi.to_chinese(Variant::Simplified), "星期三");
+    #[test]
+    fn format_wednesday() {
+        let wednesday_xing_qi = StyledWeekDay {
+            week_format: WeekFormat::XingQi,
+            week_day: WeekDay::Wednesday,
+        };
+        assert_eq!(wednesday_xing_qi.to_chinese(Variant::Simplified), "星期三");
 
-                let wednesday_zhou = StyledWeekDay {
-                    week_format: WeekFormat::Zhou,
-                    week_day: WeekDay::Wednesday,
-                };
-                eq!(wednesday_zhou.to_chinese(Variant::Simplified), "周三");
-            }
-        }
+        let wednesday_zhou = StyledWeekDay {
+            week_format: WeekFormat::Zhou,
+            week_day: WeekDay::Wednesday,
+        };
+        assert_eq!(wednesday_zhou.to_chinese(Variant::Simplified), "周三");
+
+        let wednesday_libai = StyledWeekDay {
+            week_format: WeekFormat::LiBai,
+            week_day: WeekDay::Wednesday,
+        };
+        assert_eq!(wednesday_libai.to_chinese(Variant::Simplified), "礼拜三");
     }
 }

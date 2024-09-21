@@ -34,26 +34,35 @@ impl ChineseFormat for WeekFormat {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pretty_assertions::assert_eq as eq;
-    use speculate2::*;
+    use pretty_assertions::assert_eq;
 
-    speculate! {
-        describe "WeekFormat enum" {
-            it "should be convertible to Chinese" {
-                eq!(WeekFormat::XingQi.to_chinese(Variant::Simplified), "星期");
-                eq!(WeekFormat::XingQi.to_chinese(Variant::Traditional), "星期");
+    #[test]
+    fn format_xingqi() {
+        assert_eq!(WeekFormat::XingQi.to_chinese(Variant::Simplified), "星期");
+        assert_eq!(WeekFormat::XingQi.to_chinese(Variant::Traditional), "星期");
+    }
 
-                eq!(WeekFormat::Zhou.to_chinese(Variant::Simplified), "周");
-                eq!(WeekFormat::Zhou.to_chinese(Variant::Traditional), "周");
+    #[test]
+    fn format_zhou() {
+        assert_eq!(WeekFormat::Zhou.to_chinese(Variant::Simplified), "周");
+        assert_eq!(WeekFormat::Zhou.to_chinese(Variant::Traditional), "周");
+    }
 
-                eq!(WeekFormat::LiBai.to_chinese(Variant::Simplified), "礼拜");
-                eq!(WeekFormat::LiBai.to_chinese(Variant::Traditional), "禮拜");
-            }
+    #[test]
+    fn format_libai() {
+        assert_eq!(WeekFormat::LiBai.to_chinese(Variant::Simplified), "礼拜");
+        assert_eq!(WeekFormat::LiBai.to_chinese(Variant::Traditional), "禮拜");
+    }
 
-            it "should have a default value" {
-                eq!(WeekFormat::default().to_chinese(Variant::Simplified), "星期");
-                eq!(WeekFormat::default().to_chinese(Variant::Traditional),"星期");
-            }
-        }
+    #[test]
+    fn default_value() {
+        assert_eq!(
+            WeekFormat::default().to_chinese(Variant::Simplified),
+            "星期"
+        );
+        assert_eq!(
+            WeekFormat::default().to_chinese(Variant::Traditional),
+            "星期"
+        );
     }
 }
