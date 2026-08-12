@@ -1,25 +1,26 @@
-name: Publish crate
+name: Publish
 
 on:
   pull_request:
-    types: closed
+    types: [closed]
     branches: main
 
   workflow_dispatch:
 
 jobs:
   publish:
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
-
-      - uses: giancosta86/aurora-github/actions/publish-rust-crate@v3
+      - uses: giancosta86/aurora-github/actions/publish-rust-crate@v11
         with:
           cargo-token: ${{ secrets.CARGO_TOKEN }}
 
-      - uses: giancosta86/aurora-github/actions/tag-and-release@v3
+  tag-and-release:
+    runs-on: ubuntu-24.04
+    needs: publish
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: giancosta86/aurora-github/actions/tag-and-release@v11
