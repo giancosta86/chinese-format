@@ -1,4 +1,4 @@
-name: Verify source code
+name: Verify
 
 on:
   pull_request:
@@ -9,11 +9,8 @@ on:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
-
-      - uses: giancosta86/aurora-github/actions/verify-rust-crate@v3
+      - uses: giancosta86/aurora-github/actions/verify-rust-crate@v11

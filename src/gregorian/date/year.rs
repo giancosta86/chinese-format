@@ -8,7 +8,7 @@ impl Year {
     pub fn is_leap(&self) -> bool {
         let value: u16 = self.into();
 
-        (value % 4 == 0) && (value % 100 != 0 || value % 400 == 0)
+        value.is_multiple_of(4) && (!value.is_multiple_of(100) || value.is_multiple_of(400))
     }
 }
 
