@@ -62,7 +62,7 @@ impl<'a> ChineseFormat for LeftPadder<'a> {
             .min_width
             .saturating_sub(source_chinese.logograms.chars().count());
 
-        let padding: String = iter::repeat(self.logogram).take(padding_length).collect();
+        let padding: String = iter::repeat_n(self.logogram, padding_length).collect();
 
         Chinese {
             logograms: format!("{}{}", padding, source_chinese.logograms),
