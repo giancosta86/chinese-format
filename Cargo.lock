@@ -16,7 +16,7 @@ dependencies = [
  "digit-sequence",
  "dyn-error",
  "lazy_static",
- "paste",
+ "pastey",
  "pretty_assertions",
 ]
 
@@ -46,9 +46,9 @@ checksum = "56254986775e3233ffa9c4d7d3faaf6d36a2c09d30b20687e9f88bc8bafc16c8"
 
 [[package]]
 name = "digit-sequence"
-version = "0.3.12"
+version = "0.3.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd381672412271ae056cef4bf8d2d45324be16a5c24d212d5d37bbd8b7381789"
+checksum = "62e3bd35ff9ff45855de8eb09c55a062c07f9944abd040d0a2ed309ed29bffd4"
 
 [[package]]
 name = "dyn-error"
@@ -112,10 +112,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "paste"
-version = "1.0.15"
+name = "pastey"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
+checksum = "2ee67f1008b1ba2321834326597b8e186293b049a023cdef258527550b9935b4"
 
 [[package]]
 name = "pretty_assertions"
