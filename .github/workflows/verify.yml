@@ -2,10 +2,8 @@ name: Verify
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, synchronize]
     branches: main
-
-  workflow_dispatch:
 
 jobs:
   verify:
@@ -13,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: giancosta86/aurora-github/actions/verify-rust-crate@v11
+      - uses: giancosta86/aurora-github/actions/verify-rust-crate@v12

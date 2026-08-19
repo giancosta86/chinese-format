@@ -43,7 +43,7 @@ impl_number_to_chinese!(i8);
 #[cfg(test)]
 mod tests {
     use super::*;
-    use paste::paste;
+    use pastey::paste;
 
     macro_rules! assert_chinese {
         (
